@@ -56,7 +56,7 @@ const SKILLS = {
 };
 
 const EDUCATION = {
-  degree: "B.Tech in Computer Science & Engineering", duration: "2023 – 2027",
+  degree: "B.Tech in Computer Science & Engineering", duration: "2024 – 2028",
   coursework: ["Data Structures & Algorithms", "Database Management Systems", "Operating Systems", "Computer Networks", "Object-Oriented Programming", "Discrete Mathematics"],
 };
 
@@ -232,7 +232,7 @@ function Field({ fkey, label, placeholder, type = "text", form, setForm }) {
 }
 
 // ─── PIN GATE ────────────────────────────────────────────────────────────────
-const OWNER_PIN = "1234";
+const OWNER_PIN = "0008";
 
 function PinGate({ onSuccess, onCancel }) {
   const [pin, setPin] = useState("");
