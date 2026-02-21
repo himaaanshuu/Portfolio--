@@ -108,7 +108,7 @@ function usePersistedState(storageKey, defaultValue) {
       if (saved !== null) setValue(prev => Array.isArray(defaultValue) ? saved : { ...prev, ...saved });
       setLoaded(true);
     });
-  }, [storageKey]);
+  }, [storageKey,defaultValue]);
 
   const setAndPersist = useCallback(async (updater) => {
     setValue(prev => {
