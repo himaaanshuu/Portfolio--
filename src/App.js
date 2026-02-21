@@ -56,7 +56,7 @@ const SKILLS = {
 };
 
 const EDUCATION = {
-  degree: "B.Tech in Computer Science & Engineering", duration: "2023 – 2027",
+  degree: "B.Tech in Computer Science & Engineering", duration: "2024 – 2028",
   coursework: ["Data Structures & Algorithms", "Database Management Systems", "Operating Systems", "Computer Networks", "Object-Oriented Programming", "Discrete Mathematics"],
 };
 
