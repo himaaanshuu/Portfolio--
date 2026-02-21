@@ -56,9 +56,48 @@ const SKILLS = {
 };
 
 const EDUCATION = {
-  degree: "B.Tech in Computer Science & Engineering", duration: "2024 – 2028",
+  degree: "B.Tech in Computer Science & Engineering", duration: "2023 – 2027",
   coursework: ["Data Structures & Algorithms", "Database Management Systems", "Operating Systems", "Computer Networks", "Object-Oriented Programming", "Discrete Mathematics"],
 };
+
+const DEFAULT_PROJECTS = [
+  {
+    id: "default_1",
+    name: "Bitez",
+    title: "Bitez",
+    description: "Bitez is a campus food ordering experience with a Vite + React frontend and an Express + MongoDB backend. It provides student and admin authentication (OTP + JWT), order management, and a developer-friendly structure split into frontend and backend packages.",
+    language: "React",
+    tech: ["Vite", "React", "Express", "MongoDB", "JWT"],
+    html_url: "https://github.com/himaaanshuu/BItz",
+    homepage: "https://b-itz-web4.vercel.app",
+    stargazers_count: 0,
+    _default: true,
+  },
+  {
+    id: "default_2",
+    name: "Student Performance Analysis",
+    title: "Student Performance Analysis",
+    description: "An end-to-end student performance analysis pipeline built with Python and MySQL. Ingests student marks from CSV files, cleans and processes data, stores it in MySQL, and computes per-student performance summaries with pass/average/fail status using SQL views.",
+    language: "Python",
+    tech: ["Python", "Pandas", "MySQL"],
+    html_url: "https://github.com/himaaanshuu/Student-Performance-Analysis",
+    homepage: null,
+    stargazers_count: 0,
+    _default: true,
+  },
+  {
+    id: "default_3",
+    name: "Hospital Management System",
+    title: "Hospital Management System",
+    description: "A Java Swing application for managing hospital operations with PostgreSQL database, multithreading, and a professional GUI for handling patients, staff, and appointments.",
+    language: "Java",
+    tech: ["Java", "Swing", "PostgreSQL"],
+    html_url: "https://github.com/himaaanshuu/Healthcare-Management-System",
+    homepage: null,
+    stargazers_count: 0,
+    _default: true,
+  },
+];
 
 const ACHIEVEMENTS = [
   { title: "JOB SIMULATION AS A DATA ANALYST", org: "DELOITTE AUSTRALIA", year: "2026" },
@@ -1033,20 +1072,35 @@ function ProjectCard({ p, i, unlocked, onRemove, onEdit }) {
 }
 
 function Projects({ config, unlocked }) {
-  const [addedProjects, setAddedProjects, loaded] = usePersistedState("hg_added_projects", []);
+  const [extraProjects, setExtraProjects, loaded] = usePersistedState("hg_added_projects", []);
   const [editingProject, setEditingProject] = useState(null);
 
+  // Merge hardcoded defaults with any user-added extras
+  const displayProjects = [
+    ...DEFAULT_PROJECTS.map(d => {
+      const override = extraProjects.find(e => e.id === d.id);
+      return override || d;
+    }),
+    ...extraProjects.filter(p => !DEFAULT_PROJECTS.find(d => d.id === p.id)),
+  ];
+
   const handleAdd = useCallback((repo) => {
-    setAddedProjects(prev => [...prev, repo]);
-  }, [setAddedProjects]);
+    setExtraProjects(prev => [...prev, repo]);
+  }, [setExtraProjects]);
 
   const handleRemove = useCallback((id) => {
-    setAddedProjects(prev => prev.filter(p => p.id !== id));
-  }, [setAddedProjects]);
+    // Default projects cannot be removed, only extras
+    if (DEFAULT_PROJECTS.find(p => p.id === id)) return;
+    setExtraProjects(prev => prev.filter(p => p.id !== id));
+  }, [setExtraProjects]);
 
   const handleEdit = useCallback((updated) => {
-    setAddedProjects(prev => prev.map(p => p.id === updated.id ? updated : p));
-  }, [setAddedProjects]);
+    setExtraProjects(prev => {
+      const exists = prev.find(p => p.id === updated.id);
+      if (exists) return prev.map(p => p.id === updated.id ? updated : p);
+      return [...prev, updated];
+    });
+  }, [setExtraProjects]);
 
   return (
     <section id="projects" style={{ padding: "6rem 2rem" }}>
@@ -1054,7 +1108,7 @@ function Projects({ config, unlocked }) {
         <SectionHeader
           tag="03"
           title="Projects"
-          sub="Add your GitHub repos or enter projects manually."
+          sub="Featured projects — add more via the button below."
           action={
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
               {unlocked && (
@@ -1063,7 +1117,7 @@ function Projects({ config, unlocked }) {
                   <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: "#6d28d9" }}>Owner Mode</span>
                 </div>
               )}
-              <GitHubImporter config={config} addedProjects={addedProjects} onAdd={handleAdd} />
+              <GitHubImporter config={config} addedProjects={extraProjects} onAdd={handleAdd} />
             </div>
           }
         />
@@ -1077,15 +1131,15 @@ function Projects({ config, unlocked }) {
         )}
 
         {!loaded ? (
-          <div style={{ textAlign: "center", padding: "3rem", fontFamily: "'Space Mono', monospace", fontSize: "0.78rem", color: T.textDim }}>Loading saved projects…</div>
-        ) : addedProjects.length > 0 ? (
+          <div style={{ textAlign: "center", padding: "3rem", fontFamily: "'Space Mono', monospace", fontSize: "0.78rem", color: T.textDim }}>Loading projects…</div>
+        ) : (
           <>
             <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.63rem", color: T.amber, letterSpacing: "0.1em", marginBottom: "1.25rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: T.amberBright, display: "inline-block" }} />
-              FEATURED ({addedProjects.length} project{addedProjects.length !== 1 ? "s" : ""})
+              FEATURED ({displayProjects.length} project{displayProjects.length !== 1 ? "s" : ""})
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.1rem" }}>
-              {addedProjects.map((p, i) => (
+              {displayProjects.map((p, i) => (
                 <ProjectCard
                   key={p.id}
                   p={p}
@@ -1097,15 +1151,6 @@ function Projects({ config, unlocked }) {
               ))}
             </div>
           </>
-        ) : (
-          <div style={{ padding: "3rem 2rem", borderRadius: 14, border: "1px dashed rgba(180,83,9,0.2)", background: T.amberDim, textAlign: "center" }}>
-            <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>⚡</div>
-            <div style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: "1.1rem", color: T.amber, marginBottom: "0.5rem" }}>No projects added yet</div>
-            <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", color: T.textMid, marginBottom: "1.5rem" }}>
-              {config.github ? 'Click "Add Project" above to import or manually add your work.' : 'Add your GitHub username in Settings first, then import projects here.'}
-            </div>
-            <GitHubImporter config={config} addedProjects={addedProjects} onAdd={handleAdd} />
-          </div>
         )}
       </div>
     </section>
