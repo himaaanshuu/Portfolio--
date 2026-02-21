@@ -22,7 +22,7 @@ const CONFIG = {
   intro: "2nd year Computer Science student building clean, performant UIs and structured data solutions. Focused on frontend engineering and database design for placement-ready projects.",
   email: "himanshu2005gupta@gmail.com",
   github: "himaaanshuu",
-  linkedin: "himanshu-gupta-9b549033",
+  linkedin: "himanshu-gupta-9b5490338",
   resumeUrl: "https://drive.google.com/uc?export=download&id=1-umxkvzUPVfe88exRtAUyz5H9XXpiW1d",
   college: "Galgotias University",
   semester: "4th Semester (2024–2028)",
