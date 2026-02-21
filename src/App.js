@@ -12,7 +12,6 @@ const T = {
 };
 
 // ─── PERSISTENT STORAGE HELPERS ──────────────────────────────────────────────
-// Uses window.storage (artifact persistent storage) with localStorage fallback
 const store = {
   async get(key) {
     try {
@@ -77,14 +76,50 @@ const LANG_COLORS = { JavaScript: "#f7df1e", Python: "#3572A5", HTML: "#e34c26",
 const CAT_COLORS = { "Frontend": "#6d28d9", "Database & DBMS": "#0891b2", "Data & Analytics": "#b45309", "Tools": "#be185d" };
 
 // ─── ICONS ───────────────────────────────────────────────────────────────────
-const GithubIcon = ({ size = 20 }) => (<svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" /></svg>);
-const LinkedinIcon = ({ size = 20 }) => (<svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>);
-const SettingsIcon = ({ size = 20 }) => (<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" /></svg>);
-const ExternalIcon = ({ size = 14 }) => (<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" /></svg>);
-const TrashIcon = ({ size = 14 }) => (<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6M10 11v6M14 11v6M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" /></svg>);
-const PlusIcon = ({ size = 16 }) => (<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>);
-const CheckIcon = ({ size = 16 }) => (<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12" /></svg>);
-const EditIcon = ({ size = 14 }) => (<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>);
+const GithubIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+  </svg>
+);
+const LinkedinIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  </svg>
+);
+const SettingsIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="3" />
+    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+  </svg>
+);
+const ExternalIcon = ({ size = 14 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+  </svg>
+);
+const TrashIcon = ({ size = 14 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="3 6 5 6 21 6" />
+    <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6M10 11v6M14 11v6M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" />
+  </svg>
+);
+const PlusIcon = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+);
+const CheckIcon = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+const EditIcon = ({ size = 14 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+  </svg>
+);
 
 // ─── HOOKS ───────────────────────────────────────────────────────────────────
 function useIntersect(threshold = 0.1) {
@@ -98,19 +133,24 @@ function useIntersect(threshold = 0.1) {
   return [ref, visible];
 }
 
-// ─── STORAGE HOOK — loads once on mount ──────────────────────────────────────
+// ─── STORAGE HOOK — FIX: use useRef to avoid defaultValue reference instability ──
 function usePersistedState(storageKey, defaultValue) {
   const [value, setValue] = useState(defaultValue);
   const [loaded, setLoaded] = useState(false);
+  // FIX: store defaultValue in a ref so it doesn't trigger useEffect re-runs
+  const defaultRef = useRef(defaultValue);
 
   useEffect(() => {
     store.get(storageKey).then(saved => {
-      if (saved !== null) setValue(prev => Array.isArray(defaultValue) ? saved : { ...prev, ...saved });
+      const def = defaultRef.current;
+      if (saved !== null) {
+        setValue(prev => Array.isArray(def) ? saved : { ...prev, ...saved });
+      }
       setLoaded(true);
     });
-  }, [storageKey,defaultValue]);
+  }, [storageKey]); // FIX: removed defaultValue from deps — using ref instead
 
-  const setAndPersist = useCallback(async (updater) => {
+  const setAndPersist = useCallback((updater) => {
     setValue(prev => {
       const next = typeof updater === "function" ? updater(prev) : updater;
       store.set(storageKey, next);
@@ -136,11 +176,15 @@ function Field({ fkey, label, placeholder, type = "text", form, setForm }) {
   return (
     <div>
       <label style={LABEL_STYLE}>{label}</label>
-      <input type={type} value={form[fkey] || ""} placeholder={placeholder}
+      <input
+        type={type}
+        value={form[fkey] || ""}
+        placeholder={placeholder}
         onChange={e => setForm(f => ({ ...f, [fkey]: e.target.value }))}
-        onFocus={e => e.target.style.borderColor = T.borderAccent}
-        onBlur={e => e.target.style.borderColor = T.border}
-        style={FIELD_STYLE} />
+        onFocus={e => { e.target.style.borderColor = T.borderAccent; }}
+        onBlur={e => { e.target.style.borderColor = T.border; }}
+        style={FIELD_STYLE}
+      />
     </div>
   );
 }
@@ -151,21 +195,42 @@ const OWNER_PIN = "1234";
 function PinGate({ onSuccess, onCancel }) {
   const [pin, setPin] = useState("");
   const [error, setError] = useState(false);
-  const attempt = () => {
-    if (pin === OWNER_PIN) onSuccess();
-    else { setError(true); setPin(""); setTimeout(() => setError(false), 1500); }
-  };
+
+  const attempt = useCallback(() => {
+    if (pin === OWNER_PIN) {
+      onSuccess();
+    } else {
+      setError(true);
+      setPin("");
+      setTimeout(() => setError(false), 1500);
+    }
+  }, [pin, onSuccess]);
+
+  // FIX: stable keydown handler with proper deps
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === "Enter") attempt(); };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [attempt]);
+
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 300, background: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center" }}
-      onClick={e => { if (e.target === e.currentTarget) onCancel(); }}>
+    <div
+      style={{ position: "fixed", inset: 0, zIndex: 300, background: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center" }}
+      onClick={e => { if (e.target === e.currentTarget) onCancel(); }}
+    >
       <div style={{ width: 340, background: "#fff", border: `1px solid ${error ? "rgba(220,38,38,0.3)" : T.border}`, borderRadius: 16, padding: "2rem", boxShadow: "0 8px 40px rgba(0,0,0,0.08)", transition: "border-color 0.3s" }}>
         <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: T.amber, letterSpacing: "0.12em", marginBottom: "0.5rem" }}>{`// OWNER_ACCESS`}</div>
         <h3 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 900, color: T.text, fontSize: "1.3rem", margin: "0 0 0.35rem" }}>Enter PIN</h3>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", color: T.textMid, marginBottom: "1.5rem" }}>Settings are restricted to the site owner.</p>
-        <input autoFocus type="password" value={pin} placeholder="••••" maxLength={8}
+        <input
+          autoFocus
+          type="password"
+          value={pin}
+          placeholder="••••"
+          maxLength={8}
           onChange={e => { setPin(e.target.value); setError(false); }}
-          onKeyDown={e => e.key === "Enter" && attempt()}
-          style={{ ...FIELD_STYLE, textAlign: "center", fontSize: "1.3rem", letterSpacing: "0.5em", border: `1px solid ${error ? "rgba(220,38,38,0.5)" : T.border}`, marginBottom: "0.5rem" }} />
+          style={{ ...FIELD_STYLE, textAlign: "center", fontSize: "1.3rem", letterSpacing: "0.5em", border: `1px solid ${error ? "rgba(220,38,38,0.5)" : T.border}`, marginBottom: "0.5rem" }}
+        />
         {error && <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.68rem", color: T.danger, textAlign: "center", marginBottom: "0.5rem" }}>Incorrect PIN</div>}
         <div style={{ display: "flex", gap: "0.6rem", marginTop: "1rem" }}>
           <button onClick={attempt} style={{ flex: 1, padding: "0.75rem", borderRadius: 7, cursor: "pointer", background: T.text, border: "none", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.75rem", fontWeight: 700 }}>Unlock</button>
@@ -180,6 +245,8 @@ function PinGate({ onSuccess, onCancel }) {
 function SettingsPanel({ config, onSave, open, setOpen, unlocked, showPin, setShowPin }) {
   const [form, setForm] = useState(config);
   const [saved, setSaved] = useState(false);
+
+  // FIX: config as dep is fine here since we only want to sync form when config changes externally
   useEffect(() => { setForm(config); }, [config]);
 
   const handleSave = () => {
@@ -192,21 +259,34 @@ function SettingsPanel({ config, onSave, open, setOpen, unlocked, showPin, setSh
     if (!unlocked) return null;
     return (
       <>
-        {showPin && <PinGate onSuccess={() => { setShowPin(false); setOpen(true); }} onCancel={() => setShowPin(false)} />}
-        <button onClick={() => setOpen(true)} title="Portfolio Settings (Ctrl+Shift+S)"
+        {showPin && (
+          <PinGate
+            onSuccess={() => { setShowPin(false); setOpen(true); }}
+            onCancel={() => setShowPin(false)}
+          />
+        )}
+        <button
+          onClick={() => setOpen(true)}
+          title="Portfolio Settings (Ctrl+Shift+S)"
           style={{ position: "fixed", bottom: "2rem", right: "2rem", zIndex: 200, width: 52, height: 52, borderRadius: 12, cursor: "pointer", background: "#fff", border: `1px solid ${T.border}`, color: T.text, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 20px rgba(0,0,0,0.06)", transition: "transform 0.2s, box-shadow 0.2s" }}
           onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 28px rgba(0,0,0,0.1)"; }}
           onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.06)"; }}
-        ><SettingsIcon size={19} /></button>
+        >
+          <SettingsIcon size={19} />
+        </button>
       </>
     );
   }
 
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(255,255,255,0.92)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center" }}
-      onClick={e => { if (e.target === e.currentTarget) setOpen(false); }}>
-      <div style={{ width: "100%", maxWidth: 520, background: "#fff", border: `1px solid ${T.border}`, borderRadius: 14, padding: "2rem", maxHeight: "92vh", overflowY: "auto", boxShadow: "0 8px 40px rgba(0,0,0,0.08)" }}
-        onClick={e => e.stopPropagation()}>
+    <div
+      style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(255,255,255,0.92)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center" }}
+      onClick={e => { if (e.target === e.currentTarget) setOpen(false); }}
+    >
+      <div
+        style={{ width: "100%", maxWidth: 520, background: "#fff", border: `1px solid ${T.border}`, borderRadius: 14, padding: "2rem", maxHeight: "92vh", overflowY: "auto", boxShadow: "0 8px 40px rgba(0,0,0,0.08)" }}
+        onClick={e => e.stopPropagation()}
+      >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.75rem" }}>
           <div>
             <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", color: T.amber, letterSpacing: "0.12em", marginBottom: "0.25rem" }}>{`// PORTFOLIO_SETTINGS`}</div>
@@ -222,7 +302,6 @@ function SettingsPanel({ config, onSave, open, setOpen, unlocked, showPin, setSh
           <Field fkey="college" label="College / University" placeholder="Institute name" form={form} setForm={setForm} />
           <Field fkey="semester" label="Current Semester" placeholder="e.g. 3rd Semester (2023–2027)" form={form} setForm={setForm} />
           <Field fkey="intro" label="Bio / Intro" placeholder="Brief intro about yourself" form={form} setForm={setForm} />
-
           <SectionDivider>Social Links</SectionDivider>
           <GithubField form={form} setForm={setForm} />
           <LinkedinField form={form} setForm={setForm} />
@@ -230,7 +309,10 @@ function SettingsPanel({ config, onSave, open, setOpen, unlocked, showPin, setSh
         </div>
 
         <div style={{ display: "flex", gap: "0.75rem", marginTop: "2rem" }}>
-          <button onClick={handleSave} style={{ flex: 1, padding: "0.85rem", borderRadius: 8, cursor: "pointer", background: saved ? T.success : T.text, border: "none", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.78rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", transition: "background 0.3s" }}>
+          <button
+            onClick={handleSave}
+            style={{ flex: 1, padding: "0.85rem", borderRadius: 8, cursor: "pointer", background: saved ? T.success : T.text, border: "none", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.78rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", transition: "background 0.3s" }}
+          >
             {saved ? <><CheckIcon size={15} /> Saved!</> : "Save Changes"}
           </button>
           <button onClick={() => setOpen(false)} style={{ padding: "0.85rem 1.25rem", borderRadius: 8, cursor: "pointer", background: "transparent", border: `1px solid ${T.border}`, color: T.textMid, fontFamily: "'Space Mono', monospace", fontSize: "0.78rem" }}>Cancel</button>
@@ -245,7 +327,11 @@ function SettingsPanel({ config, onSave, open, setOpen, unlocked, showPin, setSh
 }
 
 function SectionDivider({ children }) {
-  return <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", color: T.textDim, textTransform: "uppercase", letterSpacing: "0.12em", padding: "0.5rem 0", borderBottom: `1px solid ${T.border}`, marginTop: "0.5rem" }}>{children}</div>;
+  return (
+    <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", color: T.textDim, textTransform: "uppercase", letterSpacing: "0.12em", padding: "0.5rem 0", borderBottom: `1px solid ${T.border}`, marginTop: "0.5rem" }}>
+      {children}
+    </div>
+  );
 }
 
 function GithubField({ form, setForm }) {
@@ -254,13 +340,23 @@ function GithubField({ form, setForm }) {
       <label style={{ ...LABEL_STYLE, display: "flex", alignItems: "center", gap: "0.4rem" }}><GithubIcon size={11} /> GitHub Username</label>
       <div style={{ display: "flex" }}>
         <span style={{ padding: "0.65rem 0.75rem", background: "#f5f5f5", border: `1px solid ${T.border}`, borderRight: "none", borderRadius: "6px 0 0 6px", fontFamily: "'Space Mono', monospace", fontSize: "0.7rem", color: T.textDim, whiteSpace: "nowrap" }}>github.com/</span>
-        <input value={form.github || ""} placeholder="username" onChange={e => setForm(f => ({ ...f, github: e.target.value }))}
-          onFocus={e => e.target.style.borderColor = T.borderAccent} onBlur={e => e.target.style.borderColor = T.border}
-          style={{ ...FIELD_STYLE, borderRadius: "0 6px 6px 0", flex: 1 }} />
+        <input
+          value={form.github || ""}
+          placeholder="username"
+          onChange={e => setForm(f => ({ ...f, github: e.target.value }))}
+          onFocus={e => { e.target.style.borderColor = T.borderAccent; }}
+          onBlur={e => { e.target.style.borderColor = T.border; }}
+          style={{ ...FIELD_STYLE, borderRadius: "0 6px 6px 0", flex: 1 }}
+        />
       </div>
       {form.github && (
-        <a href={`https://github.com/${form.github}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
-          style={{ fontSize: "0.72rem", color: "#fff", background: T.text, fontFamily: "'Space Mono', monospace", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.4rem", marginTop: "0.5rem", padding: "0.35rem 0.8rem", borderRadius: 5, cursor: "pointer" }}>
+        <a
+          href={`https://github.com/${form.github}`}
+          target="_blank"
+          rel="noreferrer"
+          onClick={e => e.stopPropagation()}
+          style={{ fontSize: "0.72rem", color: "#fff", background: T.text, fontFamily: "'Space Mono', monospace", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.4rem", marginTop: "0.5rem", padding: "0.35rem 0.8rem", borderRadius: 5, cursor: "pointer" }}
+        >
           <ExternalIcon size={11} /> View GitHub Profile ↗
         </a>
       )}
@@ -274,13 +370,23 @@ function LinkedinField({ form, setForm }) {
       <label style={{ ...LABEL_STYLE, display: "flex", alignItems: "center", gap: "0.4rem" }}><LinkedinIcon size={11} /> LinkedIn Username</label>
       <div style={{ display: "flex" }}>
         <span style={{ padding: "0.65rem 0.75rem", background: "#f5f5f5", border: `1px solid ${T.border}`, borderRight: "none", borderRadius: "6px 0 0 6px", fontFamily: "'Space Mono', monospace", fontSize: "0.7rem", color: T.textDim, whiteSpace: "nowrap" }}>linkedin.com/in/</span>
-        <input value={form.linkedin || ""} placeholder="username" onChange={e => setForm(f => ({ ...f, linkedin: e.target.value }))}
-          onFocus={e => e.target.style.borderColor = T.borderAccent} onBlur={e => e.target.style.borderColor = T.border}
-          style={{ ...FIELD_STYLE, borderRadius: "0 6px 6px 0", flex: 1 }} />
+        <input
+          value={form.linkedin || ""}
+          placeholder="username"
+          onChange={e => setForm(f => ({ ...f, linkedin: e.target.value }))}
+          onFocus={e => { e.target.style.borderColor = T.borderAccent; }}
+          onBlur={e => { e.target.style.borderColor = T.border; }}
+          style={{ ...FIELD_STYLE, borderRadius: "0 6px 6px 0", flex: 1 }}
+        />
       </div>
       {form.linkedin && (
-        <a href={`https://www.linkedin.com/in/${form.linkedin}`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
-          style={{ fontSize: "0.72rem", color: "#fff", background: "#0a66c2", fontFamily: "'Space Mono', monospace", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.4rem", marginTop: "0.5rem", padding: "0.35rem 0.8rem", borderRadius: 5, cursor: "pointer" }}>
+        <a
+          href={`https://www.linkedin.com/in/${form.linkedin}`}
+          target="_blank"
+          rel="noreferrer"
+          onClick={e => e.stopPropagation()}
+          style={{ fontSize: "0.72rem", color: "#fff", background: "#0a66c2", fontFamily: "'Space Mono', monospace", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.4rem", marginTop: "0.5rem", padding: "0.35rem 0.8rem", borderRadius: 5, cursor: "pointer" }}
+        >
           <ExternalIcon size={11} /> View LinkedIn Profile ↗
         </a>
       )}
@@ -302,7 +408,8 @@ function GitHubImporter({ config, addedProjects, onAdd }) {
   const [manualError, setManualError] = useState("");
   const [manualSuccess, setManualSuccess] = useState(false);
 
-  const fetchRepos = () => {
+  // FIX: wrap fetchRepos in useCallback so it can be a stable dep
+  const fetchRepos = useCallback(() => {
     if (!config.github) { setFetchError("Set your GitHub username in Settings first."); return; }
     setLoading(true); setFetchError("");
     fetch(`https://api.github.com/users/${config.github}/repos?per_page=100&sort=updated`)
@@ -316,11 +423,14 @@ function GitHubImporter({ config, addedProjects, onAdd }) {
         setFetchError(`GitHub API unreachable (${err.message}). Use Manual Entry instead.`);
         setLoading(false);
       });
-  };
+  }, [config.github]);
 
+  // FIX: proper deps — fetchRepos is now stable via useCallback
   useEffect(() => {
-    if (open && tab === "auto" && config.github && repos.length === 0 && !loading) fetchRepos();
-  }, [open, tab]);
+    if (open && tab === "auto" && config.github && repos.length === 0 && !loading) {
+      fetchRepos();
+    }
+  }, [open, tab, config.github, repos.length, loading, fetchRepos]);
 
   const handleManualAdd = () => {
     setManualError("");
@@ -333,7 +443,7 @@ function GitHubImporter({ config, addedProjects, onAdd }) {
       language: manual.language.trim() || null,
       html_url: manual.html_url.trim() || null,
       homepage: manual.homepage.trim() || null,
-      stargazers_count: parseInt(manual.stargazers_count) || 0,
+      stargazers_count: parseInt(manual.stargazers_count, 10) || 0,
       _manual: true,
     };
     onAdd(project);
@@ -353,14 +463,20 @@ function GitHubImporter({ config, addedProjects, onAdd }) {
 
   return (
     <>
-      <button onClick={() => setOpen(true)} style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.65rem 1.3rem", borderRadius: 8, cursor: "pointer", background: T.amberDim, border: `1px solid rgba(180,83,9,0.2)`, color: T.amber, fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", fontWeight: 700, transition: "all 0.2s" }}
-        onMouseEnter={e => e.currentTarget.style.background = "rgba(180,83,9,0.12)"}
-        onMouseLeave={e => e.currentTarget.style.background = T.amberDim}
-      ><PlusIcon size={13} /> Add Project</button>
+      <button
+        onClick={() => setOpen(true)}
+        style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.65rem 1.3rem", borderRadius: 8, cursor: "pointer", background: T.amberDim, border: `1px solid rgba(180,83,9,0.2)`, color: T.amber, fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", fontWeight: 700, transition: "all 0.2s" }}
+        onMouseEnter={e => { e.currentTarget.style.background = "rgba(180,83,9,0.12)"; }}
+        onMouseLeave={e => { e.currentTarget.style.background = T.amberDim; }}
+      >
+        <PlusIcon size={13} /> Add Project
+      </button>
 
       {open && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}
-          onClick={e => { if (e.target === e.currentTarget) setOpen(false); }}>
+        <div
+          style={{ position: "fixed", inset: 0, zIndex: 200, background: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}
+          onClick={e => { if (e.target === e.currentTarget) setOpen(false); }}
+        >
           <div style={{ width: "100%", maxWidth: 640, background: "#fff", border: `1px solid ${T.border}`, borderRadius: 16, padding: "2rem", maxHeight: "92vh", display: "flex", flexDirection: "column", boxShadow: "0 8px 40px rgba(0,0,0,0.08)" }}>
 
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem", flexShrink: 0 }}>
@@ -371,14 +487,18 @@ function GitHubImporter({ config, addedProjects, onAdd }) {
               <button onClick={() => setOpen(false)} style={{ background: "none", border: "none", color: T.textMid, cursor: "pointer", fontSize: "1.5rem", lineHeight: 1 }}>×</button>
             </div>
 
-            {/* Tabs */}
             <div style={{ display: "flex", gap: "0.4rem", marginBottom: "1.5rem", flexShrink: 0 }}>
               {[["manual", "✏ Manual Entry"], ["auto", "⚡ From GitHub API"]].map(([key, label]) => (
-                <button key={key} onClick={() => setTab(key)} style={{ padding: "0.5rem 1.1rem", borderRadius: 6, cursor: "pointer", fontSize: "0.72rem", fontFamily: "'Space Mono', monospace", border: "none", transition: "all 0.2s", background: tab === key ? T.text : "#f3f4f6", color: tab === key ? "#fff" : T.textMid, fontWeight: tab === key ? 700 : 400 }}>{label}</button>
+                <button
+                  key={key}
+                  onClick={() => setTab(key)}
+                  style={{ padding: "0.5rem 1.1rem", borderRadius: 6, cursor: "pointer", fontSize: "0.72rem", fontFamily: "'Space Mono', monospace", border: "none", transition: "all 0.2s", background: tab === key ? T.text : "#f3f4f6", color: tab === key ? "#fff" : T.textMid, fontWeight: tab === key ? 700 : 400 }}
+                >
+                  {label}
+                </button>
               ))}
             </div>
 
-            {/* MANUAL TAB */}
             {tab === "manual" && (
               <div style={{ overflowY: "auto", display: "flex", flexDirection: "column", gap: "1rem" }}>
                 <div style={{ padding: "0.75rem 1rem", borderRadius: 8, background: "rgba(109,40,217,0.04)", border: "1px solid rgba(109,40,217,0.12)", fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", color: T.textMid, lineHeight: 1.6 }}>
@@ -388,58 +508,64 @@ function GitHubImporter({ config, addedProjects, onAdd }) {
                   <div style={{ gridColumn: "1/-1" }}>
                     <label style={lblStyle}>Project Name *</label>
                     <input value={manual.name} placeholder="e.g. my-portfolio" onChange={e => setManual(m => ({ ...m, name: e.target.value }))}
-                      onFocus={e => e.target.style.borderColor = T.borderAccent} onBlur={e => e.target.style.borderColor = T.border} style={inpStyle} />
+                      onFocus={e => { e.target.style.borderColor = T.borderAccent; }} onBlur={e => { e.target.style.borderColor = T.border; }} style={inpStyle} />
                   </div>
                   <div style={{ gridColumn: "1/-1" }}>
                     <label style={lblStyle}>Description *</label>
                     <textarea value={manual.description} placeholder="What does this project do?" rows={2}
                       onChange={e => setManual(m => ({ ...m, description: e.target.value }))}
-                      onFocus={e => e.target.style.borderColor = T.borderAccent} onBlur={e => e.target.style.borderColor = T.border}
+                      onFocus={e => { e.target.style.borderColor = T.borderAccent; }} onBlur={e => { e.target.style.borderColor = T.border; }}
                       style={{ ...inpStyle, resize: "vertical", minHeight: 60 }} />
                   </div>
                   <div>
                     <label style={lblStyle}>Primary Language</label>
                     <input value={manual.language} placeholder="e.g. JavaScript" onChange={e => setManual(m => ({ ...m, language: e.target.value }))}
-                      onFocus={e => e.target.style.borderColor = T.borderAccent} onBlur={e => e.target.style.borderColor = T.border} style={inpStyle} />
+                      onFocus={e => { e.target.style.borderColor = T.borderAccent; }} onBlur={e => { e.target.style.borderColor = T.border; }} style={inpStyle} />
                   </div>
                   <div>
                     <label style={lblStyle}>Stars</label>
                     <input type="number" min="0" value={manual.stargazers_count} onChange={e => setManual(m => ({ ...m, stargazers_count: e.target.value }))}
-                      onFocus={e => e.target.style.borderColor = T.borderAccent} onBlur={e => e.target.style.borderColor = T.border} style={inpStyle} />
+                      onFocus={e => { e.target.style.borderColor = T.borderAccent; }} onBlur={e => { e.target.style.borderColor = T.border; }} style={inpStyle} />
                   </div>
                   <div style={{ gridColumn: "1/-1" }}>
                     <label style={lblStyle}>GitHub Repo URL (optional)</label>
                     <input value={manual.html_url} placeholder="https://github.com/you/repo" onChange={e => setManual(m => ({ ...m, html_url: e.target.value }))}
-                      onFocus={e => e.target.style.borderColor = T.borderAccent} onBlur={e => e.target.style.borderColor = T.border} style={inpStyle} />
+                      onFocus={e => { e.target.style.borderColor = T.borderAccent; }} onBlur={e => { e.target.style.borderColor = T.border; }} style={inpStyle} />
                   </div>
                   <div style={{ gridColumn: "1/-1" }}>
                     <label style={lblStyle}>Live Demo URL (optional)</label>
                     <input value={manual.homepage} placeholder="https://yourproject.vercel.app" onChange={e => setManual(m => ({ ...m, homepage: e.target.value }))}
-                      onFocus={e => e.target.style.borderColor = T.borderAccent} onBlur={e => e.target.style.borderColor = T.border} style={inpStyle} />
+                      onFocus={e => { e.target.style.borderColor = T.borderAccent; }} onBlur={e => { e.target.style.borderColor = T.border; }} style={inpStyle} />
                   </div>
                 </div>
                 {manualError && <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.7rem", color: T.danger }}>{manualError}</div>}
-                <button onClick={handleManualAdd} style={{ padding: "0.8rem", borderRadius: 8, cursor: "pointer", border: "none", background: manualSuccess ? T.success : T.text, color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.76rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", transition: "background 0.3s" }}>
+                <button
+                  onClick={handleManualAdd}
+                  style={{ padding: "0.8rem", borderRadius: 8, cursor: "pointer", border: "none", background: manualSuccess ? T.success : T.text, color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.76rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", transition: "background 0.3s" }}
+                >
                   {manualSuccess ? <><CheckIcon size={15} /> Added!</> : <><PlusIcon size={14} /> Add Project</>}
                 </button>
               </div>
             )}
 
-            {/* AUTO TAB */}
             {tab === "auto" && (
               <div style={{ display: "flex", flexDirection: "column", overflow: "hidden", flex: 1 }}>
                 {!config.github ? (
                   <div style={{ textAlign: "center", padding: "2.5rem 1.5rem", background: T.amberDim, borderRadius: 10, border: "1px dashed rgba(180,83,9,0.2)" }}>
                     <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.8rem", color: T.amber, marginBottom: "0.5rem" }}>⚠ No GitHub username set</div>
-                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.83rem", color: T.textMid }}>Add your GitHub username in Settings (Ctrl+Shift+S) first, then return here.</div>
+                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.83rem", color: T.textMid }}>Add your GitHub username in Settings first, then return here.</div>
                   </div>
                 ) : (
                   <>
                     <div style={{ display: "flex", gap: "0.6rem", marginBottom: "1rem", flexShrink: 0 }}>
-                      <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search repositories…"
+                      <input
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                        placeholder="Search repositories…"
                         style={{ ...inpStyle, flex: 1 }}
-                        onFocus={e => e.target.style.borderColor = "rgba(180,83,9,0.4)"}
-                        onBlur={e => e.target.style.borderColor = T.border} />
+                        onFocus={e => { e.target.style.borderColor = "rgba(180,83,9,0.4)"; }}
+                        onBlur={e => { e.target.style.borderColor = T.border; }}
+                      />
                       <button onClick={fetchRepos} style={{ padding: "0.6rem 1rem", borderRadius: 6, cursor: "pointer", background: "#f3f4f6", border: `1px solid ${T.border}`, color: T.textMid, fontFamily: "'Space Mono', monospace", fontSize: "0.7rem" }}>
                         {loading ? "…" : "Refresh"}
                       </button>
@@ -463,18 +589,28 @@ function GitHubImporter({ config, addedProjects, onAdd }) {
                         </div>
                       )}
                       {!loading && filtered.map(repo => (
-                        <div key={repo.id} style={{ padding: "0.9rem 1.1rem", borderRadius: 10, background: "#fff", border: `1px solid ${T.border}`, display: "flex", alignItems: "center", gap: "1rem", transition: "border-color 0.2s" }}
-                          onMouseEnter={e => e.currentTarget.style.borderColor = "rgba(180,83,9,0.25)"}
-                          onMouseLeave={e => e.currentTarget.style.borderColor = T.border}>
+                        <div
+                          key={repo.id}
+                          style={{ padding: "0.9rem 1.1rem", borderRadius: 10, background: "#fff", border: `1px solid ${T.border}`, display: "flex", alignItems: "center", gap: "1rem", transition: "border-color 0.2s" }}
+                          onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(180,83,9,0.25)"; }}
+                          onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; }}
+                        >
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <div style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, color: T.text, fontSize: "0.9rem", marginBottom: "0.15rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{repo.name}</div>
                             <div style={{ color: T.textMid, fontSize: "0.76rem", fontFamily: "'DM Sans', sans-serif", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", marginBottom: "0.35rem" }}>{repo.description || <em style={{ opacity: 0.5 }}>No description</em>}</div>
                             <div style={{ display: "flex", gap: "0.9rem" }}>
-                              {repo.language && <span style={{ display: "flex", alignItems: "center", gap: "0.3rem", fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: T.textDim }}><span style={{ width: 7, height: 7, borderRadius: "50%", background: LANG_COLORS[repo.language] || "#8892a4", display: "inline-block" }} />{repo.language}</span>}
+                              {repo.language && (
+                                <span style={{ display: "flex", alignItems: "center", gap: "0.3rem", fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: T.textDim }}>
+                                  <span style={{ width: 7, height: 7, borderRadius: "50%", background: LANG_COLORS[repo.language] || "#8892a4", display: "inline-block" }} />{repo.language}
+                                </span>
+                              )}
                               <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: T.textDim }}>⭐ {repo.stargazers_count}</span>
                             </div>
                           </div>
-                          <button onClick={() => onAdd(repo)} style={{ display: "flex", alignItems: "center", gap: "0.3rem", padding: "0.45rem 0.9rem", borderRadius: 6, cursor: "pointer", whiteSpace: "nowrap", background: T.amberDim, border: "1px solid rgba(180,83,9,0.2)", color: T.amber, fontFamily: "'Space Mono', monospace", fontSize: "0.66rem", fontWeight: 700, flexShrink: 0 }}>
+                          <button
+                            onClick={() => onAdd(repo)}
+                            style={{ display: "flex", alignItems: "center", gap: "0.3rem", padding: "0.45rem 0.9rem", borderRadius: 6, cursor: "pointer", whiteSpace: "nowrap", background: T.amberDim, border: "1px solid rgba(180,83,9,0.2)", color: T.amber, fontFamily: "'Space Mono', monospace", fontSize: "0.66rem", fontWeight: 700, flexShrink: 0 }}
+                          >
                             <PlusIcon size={11} /> Add
                           </button>
                         </div>
@@ -512,13 +648,13 @@ function SectionHeader({ tag, title, sub, action }) {
 }
 
 // ─── NAVBAR ──────────────────────────────────────────────────────────────────
-function Navbar({ config, onOpenSettings, unlocked }) {
+function Navbar({ config, onOpenSettings }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
-  }, []);
+  }, []); // FIX: no deps needed, fn is defined inside effect
   return (
     <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: scrolled ? "rgba(255,255,255,0.96)" : "transparent", backdropFilter: scrolled ? "blur(10px)" : "none", borderBottom: scrolled ? `1px solid ${T.border}` : "none", transition: "all 0.3s ease", padding: "0 2rem" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
@@ -527,14 +663,36 @@ function Navbar({ config, onOpenSettings, unlocked }) {
         </a>
         <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
           {["About", "Skills", "Projects", "Insights", "Education", "Contact"].map(l => (
-            <button key={l} onClick={() => document.getElementById(l.toLowerCase())?.scrollIntoView({ behavior: "smooth" })}
+            <button
+              key={l}
+              onClick={() => document.getElementById(l.toLowerCase())?.scrollIntoView({ behavior: "smooth" })}
               style={{ color: T.textMid, fontSize: "0.75rem", fontFamily: "'Space Mono', monospace", transition: "color 0.2s", background: "none", border: "none", cursor: "pointer", padding: 0 }}
-              onMouseEnter={e => e.target.style.color = T.text} onMouseLeave={e => e.target.style.color = T.textMid}>{l}</button>
+              onMouseEnter={e => { e.target.style.color = T.text; }}
+              onMouseLeave={e => { e.target.style.color = T.textMid; }}
+            >
+              {l}
+            </button>
           ))}
           <div style={{ display: "flex", gap: "0.6rem", alignItems: "center" }}>
-            {config.github && <a href={`https://github.com/${config.github}`} target="_blank" rel="noreferrer" style={{ color: T.textMid, transition: "color 0.2s", display: "flex" }} onMouseEnter={e => e.currentTarget.style.color = T.text} onMouseLeave={e => e.currentTarget.style.color = T.textMid}><GithubIcon size={17} /></a>}
-            {config.linkedin && <a href={`https://www.linkedin.com/in/${config.linkedin}`} target="_blank" rel="noreferrer" style={{ color: T.textMid, transition: "color 0.2s", display: "flex" }} onMouseEnter={e => e.currentTarget.style.color = "#0a66c2"} onMouseLeave={e => e.currentTarget.style.color = T.textMid}><LinkedinIcon size={17} /></a>}
-            <button onClick={onOpenSettings} title="Settings" style={{ background: "none", border: "none", color: T.textMid, cursor: "pointer", display: "flex", alignItems: "center", padding: "0.25rem", borderRadius: 4, transition: "color 0.2s" }} onMouseEnter={e => e.currentTarget.style.color = T.text} onMouseLeave={e => e.currentTarget.style.color = T.textMid}>
+            {config.github && (
+              <a href={`https://github.com/${config.github}`} target="_blank" rel="noreferrer" style={{ color: T.textMid, transition: "color 0.2s", display: "flex" }}
+                onMouseEnter={e => { e.currentTarget.style.color = T.text; }} onMouseLeave={e => { e.currentTarget.style.color = T.textMid; }}>
+                <GithubIcon size={17} />
+              </a>
+            )}
+            {config.linkedin && (
+              <a href={`https://www.linkedin.com/in/${config.linkedin}`} target="_blank" rel="noreferrer" style={{ color: T.textMid, transition: "color 0.2s", display: "flex" }}
+                onMouseEnter={e => { e.currentTarget.style.color = "#0a66c2"; }} onMouseLeave={e => { e.currentTarget.style.color = T.textMid; }}>
+                <LinkedinIcon size={17} />
+              </a>
+            )}
+            <button
+              onClick={onOpenSettings}
+              title="Settings"
+              style={{ background: "none", border: "none", color: T.textMid, cursor: "pointer", display: "flex", alignItems: "center", padding: "0.25rem", borderRadius: 4, transition: "color 0.2s" }}
+              onMouseEnter={e => { e.currentTarget.style.color = T.text; }}
+              onMouseLeave={e => { e.currentTarget.style.color = T.textMid; }}
+            >
               <SettingsIcon size={16} />
             </button>
           </div>
@@ -548,11 +706,17 @@ function Navbar({ config, onOpenSettings, unlocked }) {
 function Hero({ config, onOpenSettings }) {
   const [typed, setTyped] = useState("");
   const full = config.subtitle;
+
   useEffect(() => {
-    setTyped(""); let i = 0;
-    const iv = setInterval(() => { setTyped(full.slice(0, i + 1)); i++; if (i >= full.length) clearInterval(iv); }, 38);
+    setTyped("");
+    let i = 0;
+    const iv = setInterval(() => {
+      i++;
+      setTyped(full.slice(0, i));
+      if (i >= full.length) clearInterval(iv);
+    }, 38);
     return () => clearInterval(iv);
-  }, [full]);
+  }, [full]); // FIX: full is a string derived from config.subtitle — safe dep
 
   return (
     <section id="hero" style={{ minHeight: "100vh", display: "flex", alignItems: "center", background: `radial-gradient(ellipse 90% 70% at 60% 40%, rgba(109,40,217,0.06) 0%, transparent 65%), ${T.bg}`, position: "relative", overflow: "hidden", padding: "0 2rem" }}>
@@ -580,15 +744,21 @@ function Hero({ config, onOpenSettings }) {
         <p style={{ color: T.textMid, fontSize: "1rem", maxWidth: 500, lineHeight: 1.8, margin: "0 0 2.5rem", fontFamily: "'DM Sans', sans-serif" }}>{config.intro}</p>
 
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-          <button onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+          <button
+            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
             style={{ padding: "0.78rem 1.75rem", borderRadius: 8, border: "none", cursor: "pointer", background: T.text, color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.76rem", fontWeight: 700, transition: "all 0.2s" }}
             onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.15)"; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>View Projects</button>
+            onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}
+          >
+            View Projects
+          </button>
 
           {config.resumeUrl && config.resumeUrl !== "#" ? (
             <a href={config.resumeUrl} target="_blank" rel="noreferrer" style={{ padding: "0.78rem 1.5rem", borderRadius: 8, textDecoration: "none", background: "transparent", border: `1px solid ${T.border}`, color: T.textMid, fontFamily: "'Space Mono', monospace", fontSize: "0.76rem", transition: "all 0.2s" }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = T.text; e.currentTarget.style.color = T.text; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.color = T.textMid; }}>↓ Resume</a>
+              onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.color = T.textMid; }}>
+              ↓ Resume
+            </a>
           ) : (
             <button onClick={onOpenSettings} style={{ padding: "0.78rem 1.5rem", borderRadius: 8, background: T.amberDim, border: "1px dashed rgba(180,83,9,0.3)", color: T.amber, fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", cursor: "pointer" }}>↑ Add Resume</button>
           )}
@@ -596,17 +766,25 @@ function Hero({ config, onOpenSettings }) {
           {config.github ? (
             <a href={`https://github.com/${config.github}`} target="_blank" rel="noreferrer" style={{ padding: "0.78rem 1.25rem", borderRadius: 8, textDecoration: "none", background: "transparent", border: `1px solid ${T.border}`, color: T.textMid, display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "'Space Mono', monospace", fontSize: "0.76rem", transition: "all 0.2s" }}
               onMouseEnter={e => { e.currentTarget.style.color = T.text; e.currentTarget.style.borderColor = T.text; }}
-              onMouseLeave={e => { e.currentTarget.style.color = T.textMid; e.currentTarget.style.borderColor = T.border; }}><GithubIcon size={16} /> GitHub</a>
+              onMouseLeave={e => { e.currentTarget.style.color = T.textMid; e.currentTarget.style.borderColor = T.border; }}>
+              <GithubIcon size={16} /> GitHub
+            </a>
           ) : (
-            <button onClick={onOpenSettings} style={{ padding: "0.78rem 1.25rem", borderRadius: 8, background: T.amberDim, border: "1px dashed rgba(180,83,9,0.3)", color: T.amber, display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", cursor: "pointer" }}><GithubIcon size={15} /> Add GitHub</button>
+            <button onClick={onOpenSettings} style={{ padding: "0.78rem 1.25rem", borderRadius: 8, background: T.amberDim, border: "1px dashed rgba(180,83,9,0.3)", color: T.amber, display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", cursor: "pointer" }}>
+              <GithubIcon size={15} /> Add GitHub
+            </button>
           )}
 
           {config.linkedin ? (
             <a href={`https://www.linkedin.com/in/${config.linkedin}`} target="_blank" rel="noreferrer" style={{ padding: "0.78rem 1.25rem", borderRadius: 8, textDecoration: "none", background: "rgba(10,102,194,0.06)", border: "1px solid rgba(10,102,194,0.18)", color: "#3b82f6", display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "'Space Mono', monospace", fontSize: "0.76rem", transition: "all 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.background = "rgba(10,102,194,0.12)"}
-              onMouseLeave={e => e.currentTarget.style.background = "rgba(10,102,194,0.06)"}><LinkedinIcon size={16} /> LinkedIn</a>
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(10,102,194,0.12)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "rgba(10,102,194,0.06)"; }}>
+              <LinkedinIcon size={16} /> LinkedIn
+            </a>
           ) : (
-            <button onClick={onOpenSettings} style={{ padding: "0.78rem 1.25rem", borderRadius: 8, background: "rgba(10,102,194,0.05)", border: "1px dashed rgba(10,102,194,0.25)", color: "#3b82f6", display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", cursor: "pointer" }}><LinkedinIcon size={15} /> Add LinkedIn</button>
+            <button onClick={onOpenSettings} style={{ padding: "0.78rem 1.25rem", borderRadius: 8, background: "rgba(10,102,194,0.05)", border: "1px dashed rgba(10,102,194,0.25)", color: "#3b82f6", display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", cursor: "pointer" }}>
+              <LinkedinIcon size={15} /> Add LinkedIn
+            </button>
           )}
         </div>
 
@@ -643,7 +821,12 @@ function About({ config }) {
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
-            {[{ label: "Focus", value: "Frontend Dev + SQL" }, { label: "Learning", value: "Python · Pandas · NumPy" }, { label: "Year", value: "2nd Year · " + config.semester }, { label: "Available For", value: "Internships · Placement 2027" }].map(item => (
+            {[
+              { label: "Focus", value: "Frontend Dev + SQL" },
+              { label: "Learning", value: "Python · Pandas · NumPy" },
+              { label: "Year", value: "2nd Year · " + config.semester },
+              { label: "Available For", value: "Internships · Placement 2027" },
+            ].map(item => (
               <div key={item.label} style={{ padding: "1rem 1.4rem", borderRadius: 8, background: "#fafafa", border: `1px solid ${T.border}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.63rem", color: T.textDim, textTransform: "uppercase", letterSpacing: "0.08em" }}>{item.label}</span>
                 <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", color: T.textMid }}>{item.value}</span>
@@ -715,11 +898,14 @@ function EditProjectModal({ project, onSave, onClose }) {
   const lblStyle = { display: "block", fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: T.textDim, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.35rem" };
 
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 300, background: "rgba(255,255,255,0.92)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}
-      onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
-      <div style={{ width: "100%", maxWidth: 560, background: "#fff", border: `1px solid ${T.border}`, borderRadius: 16, padding: "2rem", maxHeight: "92vh", overflowY: "auto", boxShadow: "0 8px 40px rgba(0,0,0,0.08)" }}
-        onClick={e => e.stopPropagation()}>
-
+    <div
+      style={{ position: "fixed", inset: 0, zIndex: 300, background: "rgba(255,255,255,0.92)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}
+      onClick={e => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div
+        style={{ width: "100%", maxWidth: 560, background: "#fff", border: `1px solid ${T.border}`, borderRadius: 16, padding: "2rem", maxHeight: "92vh", overflowY: "auto", boxShadow: "0 8px 40px rgba(0,0,0,0.08)" }}
+        onClick={e => e.stopPropagation()}
+      >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.5rem" }}>
           <div>
             <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", color: "#6d28d9", letterSpacing: "0.12em", marginBottom: "0.25rem" }}>{`// EDIT_PROJECT`}</div>
@@ -732,39 +918,42 @@ function EditProjectModal({ project, onSave, onClose }) {
           <div style={{ gridColumn: "1/-1" }}>
             <label style={lblStyle}>Project Name *</label>
             <input value={form.name} placeholder="Project name" onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-              onFocus={e => e.target.style.borderColor = "#6d28d9"} onBlur={e => e.target.style.borderColor = T.border} style={inpStyle} />
+              onFocus={e => { e.target.style.borderColor = "#6d28d9"; }} onBlur={e => { e.target.style.borderColor = T.border; }} style={inpStyle} />
           </div>
           <div style={{ gridColumn: "1/-1" }}>
             <label style={lblStyle}>Description *</label>
             <textarea value={form.description} placeholder="What does this project do?" rows={3}
               onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
-              onFocus={e => e.target.style.borderColor = "#6d28d9"} onBlur={e => e.target.style.borderColor = T.border}
+              onFocus={e => { e.target.style.borderColor = "#6d28d9"; }} onBlur={e => { e.target.style.borderColor = T.border; }}
               style={{ ...inpStyle, resize: "vertical", minHeight: 72 }} />
           </div>
           <div>
             <label style={lblStyle}>Primary Language</label>
             <input value={form.language} placeholder="e.g. JavaScript" onChange={e => setForm(f => ({ ...f, language: e.target.value }))}
-              onFocus={e => e.target.style.borderColor = "#6d28d9"} onBlur={e => e.target.style.borderColor = T.border} style={inpStyle} />
+              onFocus={e => { e.target.style.borderColor = "#6d28d9"; }} onBlur={e => { e.target.style.borderColor = T.border; }} style={inpStyle} />
           </div>
           <div>
             <label style={lblStyle}>Stars</label>
             <input type="number" min="0" value={form.stargazers_count} onChange={e => setForm(f => ({ ...f, stargazers_count: e.target.value }))}
-              onFocus={e => e.target.style.borderColor = "#6d28d9"} onBlur={e => e.target.style.borderColor = T.border} style={inpStyle} />
+              onFocus={e => { e.target.style.borderColor = "#6d28d9"; }} onBlur={e => { e.target.style.borderColor = T.border; }} style={inpStyle} />
           </div>
           <div style={{ gridColumn: "1/-1" }}>
             <label style={lblStyle}>GitHub Repo URL</label>
             <input value={form.html_url} placeholder="https://github.com/you/repo" onChange={e => setForm(f => ({ ...f, html_url: e.target.value }))}
-              onFocus={e => e.target.style.borderColor = "#6d28d9"} onBlur={e => e.target.style.borderColor = T.border} style={inpStyle} />
+              onFocus={e => { e.target.style.borderColor = "#6d28d9"; }} onBlur={e => { e.target.style.borderColor = T.border; }} style={inpStyle} />
           </div>
           <div style={{ gridColumn: "1/-1" }}>
             <label style={lblStyle}>Live Demo URL</label>
             <input value={form.homepage} placeholder="https://yourproject.vercel.app" onChange={e => setForm(f => ({ ...f, homepage: e.target.value }))}
-              onFocus={e => e.target.style.borderColor = "#6d28d9"} onBlur={e => e.target.style.borderColor = T.border} style={inpStyle} />
+              onFocus={e => { e.target.style.borderColor = "#6d28d9"; }} onBlur={e => { e.target.style.borderColor = T.border; }} style={inpStyle} />
           </div>
         </div>
 
         <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.5rem" }}>
-          <button onClick={handleSave} style={{ flex: 1, padding: "0.8rem", borderRadius: 8, cursor: "pointer", border: "none", background: saved ? T.success : "#6d28d9", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.76rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", transition: "background 0.3s" }}>
+          <button
+            onClick={handleSave}
+            style={{ flex: 1, padding: "0.8rem", borderRadius: 8, cursor: "pointer", border: "none", background: saved ? T.success : "#6d28d9", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.76rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", transition: "background 0.3s" }}
+          >
             {saved ? <><CheckIcon size={15} /> Saved!</> : <><CheckIcon size={15} /> Save Changes</>}
           </button>
           <button onClick={onClose} style={{ padding: "0.8rem 1.2rem", borderRadius: 8, cursor: "pointer", background: "transparent", border: `1px solid ${T.border}`, color: T.textMid, fontFamily: "'Space Mono', monospace", fontSize: "0.76rem" }}>Cancel</button>
@@ -779,28 +968,50 @@ function ProjectCard({ p, i, unlocked, onRemove, onEdit }) {
   const [ref, visible] = useIntersect();
   const [hover, setHover] = useState(false);
   return (
-    <div ref={ref} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
-      style={{ padding: "1.75rem", borderRadius: 12, position: "relative", background: hover ? T.bgCardHover : "#fff", border: `1px solid ${hover ? T.borderAccent : T.border}`, opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(28px)", transition: `opacity 0.5s ease ${(i % 4) * 0.07}s, transform 0.5s ease ${(i % 4) * 0.07}s, background 0.2s, border 0.2s` }}>
-
-      {/* Owner action buttons — only visible when unlocked */}
+    <div
+      ref={ref}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{ padding: "1.75rem", borderRadius: 12, position: "relative", background: hover ? T.bgCardHover : "#fff", border: `1px solid ${hover ? T.borderAccent : T.border}`, opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(28px)", transition: `opacity 0.5s ease ${(i % 4) * 0.07}s, transform 0.5s ease ${(i % 4) * 0.07}s, background 0.2s, border 0.2s` }}
+    >
       {unlocked && (
         <div style={{ position: "absolute", top: "1rem", right: "1rem", display: "flex", gap: "0.4rem" }}>
-          <button onClick={onEdit} title="Edit project"
+          <button
+            onClick={onEdit}
+            title="Edit project"
             style={{ background: "rgba(109,40,217,0.07)", border: "1px solid rgba(109,40,217,0.18)", color: "#6d28d9", borderRadius: 6, cursor: "pointer", padding: "0.3rem 0.45rem", display: "flex", alignItems: "center", transition: "all 0.2s" }}
-            onMouseEnter={e => e.currentTarget.style.background = "rgba(109,40,217,0.15)"}
-            onMouseLeave={e => e.currentTarget.style.background = "rgba(109,40,217,0.07)"}><EditIcon size={13} /></button>
-          <button onClick={onRemove} title="Remove project"
+            onMouseEnter={e => { e.currentTarget.style.background = "rgba(109,40,217,0.15)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "rgba(109,40,217,0.07)"; }}
+          >
+            <EditIcon size={13} />
+          </button>
+          <button
+            onClick={onRemove}
+            title="Remove project"
             style={{ background: "rgba(220,38,38,0.06)", border: "1px solid rgba(220,38,38,0.15)", color: T.danger, borderRadius: 6, cursor: "pointer", padding: "0.3rem 0.45rem", display: "flex", alignItems: "center", transition: "all 0.2s" }}
-            onMouseEnter={e => e.currentTarget.style.background = "rgba(220,38,38,0.12)"}
-            onMouseLeave={e => e.currentTarget.style.background = "rgba(220,38,38,0.06)"}><TrashIcon size={13} /></button>
+            onMouseEnter={e => { e.currentTarget.style.background = "rgba(220,38,38,0.12)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "rgba(220,38,38,0.06)"; }}
+          >
+            <TrashIcon size={13} />
+          </button>
         </div>
       )}
 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "0.8rem", paddingRight: unlocked ? "5rem" : 0 }}>
         <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: "1rem", fontWeight: 700, color: T.text, margin: 0 }}>{p.title || p.name}</h3>
         <div style={{ display: "flex", gap: "0.4rem", marginLeft: "0.5rem", flexShrink: 0 }}>
-          {(p.github || p.html_url) && <a href={p.github || p.html_url} target="_blank" rel="noreferrer" style={{ color: T.textDim, transition: "color 0.2s" }} onMouseEnter={e => e.currentTarget.style.color = T.text} onMouseLeave={e => e.currentTarget.style.color = T.textDim}><GithubIcon size={15} /></a>}
-          {(p.demo || p.homepage) && <a href={p.demo || p.homepage} target="_blank" rel="noreferrer" style={{ color: T.textDim, transition: "color 0.2s" }} onMouseEnter={e => e.currentTarget.style.color = T.text} onMouseLeave={e => e.currentTarget.style.color = T.textDim}><ExternalIcon size={13} /></a>}
+          {(p.github || p.html_url) && (
+            <a href={p.github || p.html_url} target="_blank" rel="noreferrer" style={{ color: T.textDim, transition: "color 0.2s" }}
+              onMouseEnter={e => { e.currentTarget.style.color = T.text; }} onMouseLeave={e => { e.currentTarget.style.color = T.textDim; }}>
+              <GithubIcon size={15} />
+            </a>
+          )}
+          {(p.demo || p.homepage) && (
+            <a href={p.demo || p.homepage} target="_blank" rel="noreferrer" style={{ color: T.textDim, transition: "color 0.2s" }}
+              onMouseEnter={e => { e.currentTarget.style.color = T.text; }} onMouseLeave={e => { e.currentTarget.style.color = T.textDim; }}>
+              <ExternalIcon size={13} />
+            </a>
+          )}
         </div>
       </div>
       <p style={{ color: T.textMid, fontSize: "0.84rem", lineHeight: 1.68, marginBottom: "1.2rem", fontFamily: "'DM Sans', sans-serif" }}>
@@ -810,7 +1021,9 @@ function ProjectCard({ p, i, unlocked, onRemove, onEdit }) {
         {(p.tech || (p.language ? [p.language] : [])).map(t => (
           <span key={t} style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", padding: "0.25rem 0.6rem", borderRadius: 4, background: "rgba(109,40,217,0.06)", border: "1px solid rgba(109,40,217,0.12)", color: "#6d28d9" }}>{t}</span>
         ))}
-        {p.stargazers_count > 0 && <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", padding: "0.25rem 0.6rem", borderRadius: 4, background: T.amberDim, border: "1px solid rgba(180,83,9,0.12)", color: T.amber, marginLeft: "auto" }}>⭐ {p.stargazers_count}</span>}
+        {p.stargazers_count > 0 && (
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", padding: "0.25rem 0.6rem", borderRadius: 4, background: T.amberDim, border: "1px solid rgba(180,83,9,0.12)", color: T.amber, marginLeft: "auto" }}>⭐ {p.stargazers_count}</span>
+        )}
       </div>
     </div>
   );
@@ -820,14 +1033,25 @@ function Projects({ config, unlocked }) {
   const [addedProjects, setAddedProjects, loaded] = usePersistedState("hg_added_projects", []);
   const [editingProject, setEditingProject] = useState(null);
 
-  const handleAdd = (repo) => setAddedProjects(prev => [...prev, repo]);
-  const handleRemove = (id) => setAddedProjects(prev => prev.filter(p => p.id !== id));
-  const handleEdit = (updated) => setAddedProjects(prev => prev.map(p => p.id === updated.id ? updated : p));
+  const handleAdd = useCallback((repo) => {
+    setAddedProjects(prev => [...prev, repo]);
+  }, [setAddedProjects]);
+
+  const handleRemove = useCallback((id) => {
+    setAddedProjects(prev => prev.filter(p => p.id !== id));
+  }, [setAddedProjects]);
+
+  const handleEdit = useCallback((updated) => {
+    setAddedProjects(prev => prev.map(p => p.id === updated.id ? updated : p));
+  }, [setAddedProjects]);
 
   return (
     <section id="projects" style={{ padding: "6rem 2rem" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <SectionHeader tag="03" title="Projects" sub="Add your GitHub repos or enter projects manually."
+        <SectionHeader
+          tag="03"
+          title="Projects"
+          sub="Add your GitHub repos or enter projects manually."
           action={
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
               {unlocked && (
@@ -859,9 +1083,14 @@ function Projects({ config, unlocked }) {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.1rem" }}>
               {addedProjects.map((p, i) => (
-                <ProjectCard key={p.id} p={p} i={i} unlocked={unlocked}
+                <ProjectCard
+                  key={p.id}
+                  p={p}
+                  i={i}
+                  unlocked={unlocked}
                   onRemove={() => handleRemove(p.id)}
-                  onEdit={() => setEditingProject(p)} />
+                  onEdit={() => setEditingProject(p)}
+                />
               ))}
             </div>
           </>
@@ -970,9 +1199,12 @@ function Achievements() {
         <SectionHeader tag="06" title="Achievements" />
         <div ref={ref} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem", opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(24px)", transition: "all 0.6s ease" }}>
           {ACHIEVEMENTS.map(a => (
-            <div key={a.title} style={{ padding: "1.5rem", borderRadius: 10, background: "#fff", border: `1px solid ${T.border}`, transition: "all 0.2s" }}
+            <div
+              key={a.title}
+              style={{ padding: "1.5rem", borderRadius: 10, background: "#fff", border: `1px solid ${T.border}`, transition: "all 0.2s" }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = T.borderAccent; e.currentTarget.style.transform = "translateY(-2px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.transform = "none"; }}>
+              onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.transform = "none"; }}
+            >
               <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.56rem", color: T.amber, marginBottom: "0.75rem", letterSpacing: "0.1em" }}>CERTIFIED</div>
               <h4 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, color: T.text, margin: "0 0 0.4rem", fontSize: "0.93rem" }}>{a.title}</h4>
               <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", color: T.textMid }}>{a.org}</div>
@@ -999,8 +1231,18 @@ function Contact({ config }) {
     if (form.message.trim().length < 20) e.message = "Min 20 characters";
     return e;
   };
-  const submit = () => { const e = validate(); if (Object.keys(e).length) { setErrors(e); return; } setSent(true); };
-  const inp = (err) => ({ width: "100%", padding: "0.8rem 1rem", borderRadius: 7, boxSizing: "border-box", background: "#fafafa", border: `1px solid ${err ? "rgba(220,38,38,0.4)" : T.border}`, color: T.text, fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", outline: "none", transition: "border-color 0.2s" });
+
+  const submit = () => {
+    const e = validate();
+    if (Object.keys(e).length) { setErrors(e); return; }
+    setSent(true);
+  };
+
+  const inp = (err) => ({
+    width: "100%", padding: "0.8rem 1rem", borderRadius: 7, boxSizing: "border-box",
+    background: "#fafafa", border: `1px solid ${err ? "rgba(220,38,38,0.4)" : T.border}`,
+    color: T.text, fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", outline: "none", transition: "border-color 0.2s",
+  });
 
   return (
     <section id="contact" style={{ padding: "6rem 2rem" }}>
@@ -1013,17 +1255,29 @@ function Contact({ config }) {
               ...(config.github ? [{ label: "GitHub", value: `@${config.github}`, href: `https://github.com/${config.github}`, color: T.text }] : []),
               ...(config.linkedin ? [{ label: "LinkedIn", value: `in/${config.linkedin}`, href: `https://www.linkedin.com/in/${config.linkedin}`, color: "#0a66c2" }] : []),
             ].map(c => (
-              <a key={c.label} href={c.href} target="_blank" rel="noreferrer" style={{ padding: "1.1rem 1.4rem", borderRadius: 8, textDecoration: "none", background: "#fafafa", border: `1px solid ${T.border}`, display: "flex", justifyContent: "space-between", alignItems: "center", transition: "all 0.2s" }}
+              <a
+                key={c.label}
+                href={c.href}
+                target="_blank"
+                rel="noreferrer"
+                style={{ padding: "1.1rem 1.4rem", borderRadius: 8, textDecoration: "none", background: "#fafafa", border: `1px solid ${T.border}`, display: "flex", justifyContent: "space-between", alignItems: "center", transition: "all 0.2s" }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = T.borderAccent; e.currentTarget.style.background = T.bgCardHover; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.background = "#fafafa"; }}>
+                onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.background = "#fafafa"; }}
+              >
                 <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.63rem", color: T.textDim, textTransform: "uppercase", letterSpacing: "0.08em" }}>{c.label}</span>
                 <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", color: c.color }}>{c.value}</span>
               </a>
             ))}
-            <a href={config.resumeUrl && config.resumeUrl !== "#" ? config.resumeUrl : undefined} target="_blank" rel="noreferrer"
+            <a
+              href={config.resumeUrl && config.resumeUrl !== "#" ? config.resumeUrl : undefined}
+              target="_blank"
+              rel="noreferrer"
               style={{ padding: "0.8rem 1.4rem", borderRadius: 8, textDecoration: "none", textAlign: "center", background: "rgba(109,40,217,0.06)", border: "1px solid rgba(109,40,217,0.15)", color: "#6d28d9", fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", transition: "all 0.2s", opacity: config.resumeUrl && config.resumeUrl !== "#" ? 1 : 0.45, cursor: config.resumeUrl && config.resumeUrl !== "#" ? "pointer" : "not-allowed" }}
               onMouseEnter={e => { if (config.resumeUrl && config.resumeUrl !== "#") e.currentTarget.style.background = "rgba(109,40,217,0.1)"; }}
-              onMouseLeave={e => e.currentTarget.style.background = "rgba(109,40,217,0.06)"}>↓ Download Resume</a>
+              onMouseLeave={e => { e.currentTarget.style.background = "rgba(109,40,217,0.06)"; }}
+            >
+              ↓ Download Resume
+            </a>
           </div>
 
           <div>
@@ -1035,29 +1289,45 @@ function Contact({ config }) {
               </div>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                {[{ key: "name", label: "Name", type: "text", placeholder: "Your name" }, { key: "email", label: "Email", type: "email", placeholder: "your@email.com" }].map(field => (
+                {[
+                  { key: "name", label: "Name", type: "text", placeholder: "Your name" },
+                  { key: "email", label: "Email", type: "email", placeholder: "your@email.com" },
+                ].map(field => (
                   <div key={field.key}>
                     <label style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: T.textDim, textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.4rem" }}>{field.label}</label>
-                    <input type={field.type} value={form[field.key]} placeholder={field.placeholder}
+                    <input
+                      type={field.type}
+                      value={form[field.key]}
+                      placeholder={field.placeholder}
                       onChange={e => { setForm(f => ({ ...f, [field.key]: e.target.value })); setErrors(er => ({ ...er, [field.key]: undefined })); }}
-                      onFocus={e => e.target.style.borderColor = T.borderAccent}
-                      onBlur={e => e.target.style.borderColor = errors[field.key] ? "rgba(220,38,38,0.4)" : T.border}
-                      style={inp(errors[field.key])} />
+                      onFocus={e => { e.target.style.borderColor = T.borderAccent; }}
+                      onBlur={e => { e.target.style.borderColor = errors[field.key] ? "rgba(220,38,38,0.4)" : T.border; }}
+                      style={inp(errors[field.key])}
+                    />
                     {errors[field.key] && <div style={{ color: T.danger, fontSize: "0.7rem", marginTop: "0.3rem", fontFamily: "'Space Mono', monospace" }}>{errors[field.key]}</div>}
                   </div>
                 ))}
                 <div>
                   <label style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", color: T.textDim, textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.4rem" }}>Message</label>
-                  <textarea value={form.message} rows={4} placeholder="Your message…"
+                  <textarea
+                    value={form.message}
+                    rows={4}
+                    placeholder="Your message…"
                     onChange={e => { setForm(f => ({ ...f, message: e.target.value })); setErrors(er => ({ ...er, message: undefined })); }}
-                    onFocus={e => e.target.style.borderColor = T.borderAccent}
-                    onBlur={e => e.target.style.borderColor = errors.message ? "rgba(220,38,38,0.4)" : T.border}
-                    style={{ ...inp(errors.message), resize: "vertical", minHeight: 100 }} />
+                    onFocus={e => { e.target.style.borderColor = T.borderAccent; }}
+                    onBlur={e => { e.target.style.borderColor = errors.message ? "rgba(220,38,38,0.4)" : T.border; }}
+                    style={{ ...inp(errors.message), resize: "vertical", minHeight: 100 }}
+                  />
                   {errors.message && <div style={{ color: T.danger, fontSize: "0.7rem", marginTop: "0.3rem", fontFamily: "'Space Mono', monospace" }}>{errors.message}</div>}
                 </div>
-                <button onClick={submit} style={{ padding: "0.85rem", borderRadius: 8, cursor: "pointer", background: T.text, border: "none", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.76rem", fontWeight: 700, transition: "all 0.2s" }}
+                <button
+                  onClick={submit}
+                  style={{ padding: "0.85rem", borderRadius: 8, cursor: "pointer", background: T.text, border: "none", color: "#fff", fontFamily: "'Space Mono', monospace", fontSize: "0.76rem", fontWeight: 700, transition: "all 0.2s" }}
                   onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,0.15)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>Send Message →</button>
+                  onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}
+                >
+                  Send Message →
+                </button>
               </div>
             )}
           </div>
@@ -1076,29 +1346,34 @@ export default function App() {
 
   useEffect(() => { document.title = "Himanshu Gupta - Portfolio"; }, []);
 
+  // FIX: wrap handler in useCallback so useEffect dep is stable
+  const handleOpenSettings = useCallback(() => {
+    if (!unlocked) setShowPin(true);
+    else setSettingsOpen(true);
+  }, [unlocked]);
+
+  // FIX: all deps properly declared
   useEffect(() => {
     const handleKey = (e) => {
       if (e.ctrlKey && e.shiftKey && e.key === "S") {
         e.preventDefault();
-        if (!unlocked) setShowPin(true);
-        else setSettingsOpen(true);
+        handleOpenSettings();
       }
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [unlocked]);
+  }, [handleOpenSettings]);
 
-  const handleOpenSettings = () => {
-    if (!unlocked) setShowPin(true);
-    else setSettingsOpen(true);
-  };
-
-  const handleSaveConfig = (newConfig) => {
+  const handleSaveConfig = useCallback((newConfig) => {
     setConfig(newConfig);
-  };
+  }, [setConfig]);
 
   if (!configLoaded) {
-    return <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Space Mono', monospace", fontSize: "0.8rem", color: "#9ca3af" }}>Loading portfolio…</div>;
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Space Mono', monospace", fontSize: "0.8rem", color: "#9ca3af" }}>
+        Loading portfolio…
+      </div>
+    );
   }
 
   return (
@@ -1129,10 +1404,13 @@ export default function App() {
       )}
 
       <SettingsPanel
-        config={config} onSave={handleSaveConfig}
-        open={settingsOpen} setOpen={setSettingsOpen}
+        config={config}
+        onSave={handleSaveConfig}
+        open={settingsOpen}
+        setOpen={setSettingsOpen}
         unlocked={unlocked}
-        showPin={showPin} setShowPin={setShowPin}
+        showPin={showPin}
+        setShowPin={setShowPin}
       />
 
       <main>
