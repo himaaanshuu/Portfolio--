@@ -1016,8 +1016,8 @@ function ProjectCard({ p, i, unlocked, onRemove, onEdit }) {
       onMouseLeave={() => setHover(false)}
       style={{ padding: "1.75rem", borderRadius: 12, position: "relative", background: hover ? T.bgCardHover : "#fff", border: `1px solid ${hover ? T.borderAccent : T.border}`, opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(28px)", transition: `opacity 0.5s ease ${(i % 4) * 0.07}s, transform 0.5s ease ${(i % 4) * 0.07}s, background 0.2s, border 0.2s` }}
     >
-      {unlocked && (
-        <div style={{ position: "absolute", top: "1rem", right: "1rem", display: "flex", gap: "0.4rem" }}>
+      {/* Edit always visible; delete only for non-default projects when unlocked */}
+      <div style={{ position: "absolute", top: "1rem", right: "1rem", display: "flex", gap: "0.4rem" }}>
           <button
             onClick={onEdit}
             title="Edit project"
@@ -1027,19 +1027,20 @@ function ProjectCard({ p, i, unlocked, onRemove, onEdit }) {
           >
             <EditIcon size={13} />
           </button>
-          <button
-            onClick={onRemove}
-            title="Remove project"
-            style={{ background: "rgba(220,38,38,0.06)", border: "1px solid rgba(220,38,38,0.15)", color: T.danger, borderRadius: 6, cursor: "pointer", padding: "0.3rem 0.45rem", display: "flex", alignItems: "center", transition: "all 0.2s" }}
-            onMouseEnter={e => { e.currentTarget.style.background = "rgba(220,38,38,0.12)"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "rgba(220,38,38,0.06)"; }}
-          >
-            <TrashIcon size={13} />
-          </button>
+          {unlocked && !p._default && (
+            <button
+              onClick={onRemove}
+              title="Remove project"
+              style={{ background: "rgba(220,38,38,0.06)", border: "1px solid rgba(220,38,38,0.15)", color: T.danger, borderRadius: 6, cursor: "pointer", padding: "0.3rem 0.45rem", display: "flex", alignItems: "center", transition: "all 0.2s" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(220,38,38,0.12)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "rgba(220,38,38,0.06)"; }}
+            >
+              <TrashIcon size={13} />
+            </button>
+          )}
         </div>
-      )}
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "0.8rem", paddingRight: unlocked ? "5rem" : 0 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "0.8rem", paddingRight: "4rem" }}>
         <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: "1rem", fontWeight: 700, color: T.text, margin: 0 }}>{p.title || p.name}</h3>
         <div style={{ display: "flex", gap: "0.4rem", marginLeft: "0.5rem", flexShrink: 0 }}>
           {(p.github || p.html_url) && (
