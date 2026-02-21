@@ -40,9 +40,12 @@ const DEFAULT_CONFIG = {
   title: "B.Tech CSE Student",
   subtitle: "Frontend Developer · SQL Specialist · Aspiring Data Analyst",
   intro: "2nd year Computer Science student building clean, performant UIs and structured data solutions. Focused on frontend engineering and database design for placement-ready projects.",
-  email: "himanshu.gupta@email.com",
-  github: "", linkedin: "", resumeUrl: "#",
-  college: "XYZ Institute of Technology", semester: "3rd Semester (2023–2027)",
+  email: "himanshu2005gupta@gmail.com",
+  github: "himaaanshuu",
+  linkedin: "himanshu-gupta-9b549033",
+  resumeUrl: "#",
+  college: "Galgotias University",
+  semester: "4th Semester (2024–2028)",
 };
 
 const SKILLS = {
