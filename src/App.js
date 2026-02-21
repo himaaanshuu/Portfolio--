@@ -22,8 +22,8 @@ const CONFIG = {
   intro: "2nd year Computer Science student building clean, performant UIs and structured data solutions. Focused on frontend engineering and database design for placement-ready projects.",
   email: "himanshu2005gupta@gmail.com",
   github: "himaaanshuu",
-  linkedin: "himanshu-gupta-9b5490338",
-  resumeUrl: "file:///Users/himanshu/Downloads/Himanshu%20Gupta.pdf",
+  linkedin: "himanshu-gupta-9b549033",
+  resumeUrl: "https://drive.google.com/uc?export=download&id=1-umxkvzUPVfe88exRtAUyz5H9XXpiW1d",
   college: "Galgotias University",
   semester: "4th Semester (2024–2028)",
 };
@@ -322,7 +322,7 @@ function Hero() {
           </button>
 
           {CONFIG.resumeUrl && CONFIG.resumeUrl !== "#" && (
-            <a href={CONFIG.resumeUrl} target="_blank" rel="noreferrer"
+            <a href={CONFIG.resumeUrl} target="_blank" rel="noreferrer" download="Himanshu_Gupta_Resume.pdf"
               style={{ padding: "0.78rem 1.5rem", borderRadius: 8, textDecoration: "none", background: "transparent", border: `1px solid ${T.border}`, color: T.textMid, fontFamily: "'Space Mono', monospace", fontSize: "0.76rem", transition: "all 0.2s" }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = T.text; e.currentTarget.style.color = T.text; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.color = T.textMid; }}>
@@ -685,6 +685,7 @@ function Contact() {
                 href={CONFIG.resumeUrl}
                 target="_blank"
                 rel="noreferrer"
+                download="Himanshu_Gupta_Resume.pdf"
                 style={{ padding: "0.8rem 1.4rem", borderRadius: 8, textDecoration: "none", textAlign: "center", background: "rgba(109,40,217,0.06)", border: "1px solid rgba(109,40,217,0.15)", color: "#6d28d9", fontFamily: "'Space Mono', monospace", fontSize: "0.72rem", transition: "all 0.2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "rgba(109,40,217,0.1)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "rgba(109,40,217,0.06)"; }}
