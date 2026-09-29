@@ -1,0 +1,11 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Package: dulhe_ka_bhai",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "dulhe_ka_bhai"
+        }
+    ]
+}
