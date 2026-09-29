@@ -34,7 +34,7 @@ const CONFIG = {
   email: "himanshu2005gupta@gmail.com",
   github: "himaaanshuu",
   linkedin: "himanshu-gupta-9b5490338",
-  resumeUrl: "https://docs.google.com/document/d/1z_FLMZArYgKhPaGuuVz0D34Q1UgExpGF/edit?usp=drive_link&ouid=105082930192226555853&rtpof=true&sd=true",
+  resumeUrl: "https://drive.google.com/file/d/15f_7N2HlG_hIsHnJuC3yXEYKiqpC6T0-/view?usp=drive_link",
   college: "Galgotias University",
   semester: "4th Semester (2024-2028)",
 };
