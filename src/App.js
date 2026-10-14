@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo, useContext, createContext } from "react";
 import { motion, useScroll, useTransform, useInView, useSpring, AnimatePresence } from "framer-motion";
 import {
   BarChart, Bar, LineChart, Line,
@@ -7,7 +7,8 @@ import {
 import "./App.css";
 
 // ─── THEME ───────────────────────────────────────────────────────────────────
-const T = {
+const darkTheme = {
+  mode: "dark",
   bg: "#0C0C0C",
   bgAlt: "#111111",
   border: "rgba(215,226,234,0.15)",
@@ -19,11 +20,79 @@ const T = {
   textDim: "rgba(215,226,234,0.65)",
   textBright: "#FFFFFF",
   headingGradient: "linear-gradient(180deg, #646973 0%, #BBCCD7 100%)",
+  firstNameGradient: "linear-gradient(180deg, #8A93A3 0%, #D7E2EA 100%)",
+  nameGradient: "linear-gradient(135deg, #FFFFFF 10%, #71717a 100%)",
   coral: "#f97316",
   coralDim: "rgba(249,115,22,0.15)",
   success: "#059669",
   danger: "#dc2626",
+  gridLine: "rgba(215,226,234,0.4)",
+  chartGrid: "rgba(215,226,234,0.06)",
+  chartHtml: "#D7E2EA",
+  tooltipBg: "#1a1a1a",
+  trackBg: "rgba(215,226,234,0.1)",
+  faintNumber: "rgba(215,226,234,0.06)",
+  badgeBg: "rgba(215,226,234,0.06)",
+  hoverBorder: "rgba(215,226,234,0.3)",
+  inputFocus: "rgba(215,226,234,0.3)",
+  navBg: "rgba(12,12,12,0.95)",
+  navMenuBg: "rgba(12,12,12,0.98)",
+  chatBg: "rgba(12,12,12,0.94)",
+  chatHeaderBg: "rgba(17,17,17,0.7)",
+  chatBorder: "rgba(215,226,234,0.18)",
+  chatBorderSoft: "rgba(215,226,234,0.1)",
+  bubbleBot: "rgba(255,255,255,0.04)",
+  suggestBg: "rgba(255,255,255,0.03)",
+  suggestBgHover: "rgba(255,255,255,0.05)",
+  inputBg: "rgba(255,255,255,0.04)",
+  toggleOpenBg: "#1a1a1a",
+  shadow: "0 16px 56px rgba(0,0,0,0.65), 0 0 0 1px rgba(215,226,234,0.06) inset",
 };
+
+const lightTheme = {
+  mode: "light",
+  bg: "#F4F5F7",
+  bgAlt: "#FFFFFF",
+  border: "rgba(20,30,40,0.12)",
+  accent: "#52525b",
+  accentDim: "rgba(82,82,91,0.1)",
+  nardo: "#52525b",
+  nardoDim: "rgba(82,82,91,0.1)",
+  text: "#1A2230",
+  textDim: "rgba(26,34,48,0.62)",
+  textBright: "#0C0C0C",
+  headingGradient: "linear-gradient(180deg, #566074 0%, #0E1524 100%)",
+  firstNameGradient: "linear-gradient(180deg, #0E1524 20%, #3A4356 100%)",
+  nameGradient: "linear-gradient(135deg, #52525b 10%, #ea580c 100%)",
+  coral: "#ea580c",
+  coralDim: "rgba(234,88,12,0.1)",
+  success: "#059669",
+  danger: "#dc2626",
+  gridLine: "rgba(20,30,40,0.12)",
+  chartGrid: "rgba(20,30,40,0.08)",
+  chartHtml: "#334155",
+  tooltipBg: "#FFFFFF",
+  trackBg: "rgba(20,30,40,0.08)",
+  faintNumber: "rgba(20,30,40,0.07)",
+  badgeBg: "rgba(20,30,40,0.05)",
+  hoverBorder: "rgba(20,30,40,0.28)",
+  inputFocus: "rgba(82,82,91,0.45)",
+  navBg: "rgba(244,245,247,0.9)",
+  navMenuBg: "rgba(255,255,255,0.98)",
+  chatBg: "rgba(255,255,255,0.94)",
+  chatHeaderBg: "rgba(244,245,247,0.85)",
+  chatBorder: "rgba(20,30,40,0.14)",
+  chatBorderSoft: "rgba(20,30,40,0.1)",
+  bubbleBot: "rgba(20,30,40,0.04)",
+  suggestBg: "rgba(20,30,40,0.03)",
+  suggestBgHover: "rgba(20,30,40,0.06)",
+  inputBg: "rgba(20,30,40,0.03)",
+  toggleOpenBg: "#FFFFFF",
+  shadow: "0 16px 56px rgba(20,30,40,0.18), 0 0 0 1px rgba(20,30,40,0.05) inset",
+};
+
+const ThemeContext = createContext(darkTheme);
+const useTheme = () => useContext(ThemeContext);
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 const CONFIG = {
@@ -142,6 +211,16 @@ const SendIcon = ({ size = 18 }) => (
     <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
   </svg>
 );
+const SunIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+  </svg>
+);
+const MoonIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+  </svg>
+);
 
 // ─── ANIMATION WRAPPER ───────────────────────────────────────────────────────
 function FadeIn({ children, delay = 0, y = 30, x = 0, className = "", style = {} }) {
@@ -204,17 +283,19 @@ function MagneticButton({ children, href, target, className = "", style = {}, on
 
 // ─── SECTION HEADER ──────────────────────────────────────────────────────────
 function SectionHeader({ tag, title, sub }) {
+  const T = useTheme();
   return (
     <FadeIn style={{ marginBottom: "3.5rem" }}>
       <div style={{ fontFamily: "'Space Grotesk', sans-serif", color: T.textDim, fontSize: "0.8rem", marginBottom: "0.6rem", letterSpacing: "0.12em", fontWeight: 400 }}>{`// ${tag}`}</div>
-      <h2 style={{ fontFamily: "'Kanit', sans-serif", fontSize: "clamp(2rem, 5vw, 3rem)", fontWeight: 900, margin: 0, letterSpacing: "-0.025em", background: T.headingGradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{title}</h2>
+      <h2 style={{ fontFamily: "'Kanit', sans-serif", fontSize: "clamp(2rem, 5vw, 3rem)", fontWeight: 900, margin: 0, letterSpacing: "-0.025em", backgroundImage: T.headingGradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{title}</h2>
       {sub && <p style={{ color: T.textDim, marginTop: "0.6rem", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 400, fontSize: "1.05rem", maxWidth: 600 }}>{sub}</p>}
     </FadeIn>
   );
 }
 
 // ─── NAVBAR ──────────────────────────────────────────────────────────────────
-function Navbar() {
+function Navbar({ lightMode, onToggleTheme }) {
+  const T = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -231,7 +312,7 @@ function Navbar() {
   const scrollTo = (id) => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenuOpen(false); };
   const navLinks = ["About", "Skills", "Projects", "Insights", "Education", "Contact"];
   return (
-    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: scrolled || menuOpen ? "rgba(12,12,12,0.95)" : "transparent", backdropFilter: scrolled ? "blur(12px)" : "none", borderBottom: scrolled ? `1px solid ${T.border}` : "none", transition: "all 0.3s ease", padding: "0 1.5rem" }}>
+    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: scrolled || menuOpen ? T.navBg : "transparent", backdropFilter: scrolled ? "blur(12px)" : "none", borderBottom: scrolled ? `1px solid ${T.border}` : "none", transition: "all 0.3s ease", padding: "0 1.5rem" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
         <a href="#hero" style={{ fontFamily: "'Kanit', sans-serif", color: T.text, fontSize: "1.1rem", fontWeight: 700, textDecoration: "none" }}>
           {CONFIG.name.split(" ")[0]}<span style={{ color: T.accent }}>.dev</span>
@@ -250,17 +331,32 @@ function Navbar() {
                 onMouseEnter={e => { e.currentTarget.style.color = "#0a66c2"; }}
                 onMouseLeave={e => { e.currentTarget.style.color = T.textDim; }}><LinkedinIcon size={17} /></a>
             )}
+            <motion.button onClick={onToggleTheme} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+              aria-label={lightMode ? "Switch to dark mode" : "Switch to light mode"}
+              title={lightMode ? "Switch to dark mode" : "Switch to light mode"}
+              style={{ background: "none", border: `1px solid ${T.border}`, borderRadius: "50%", width: 34, height: 34, cursor: "pointer", color: T.text, display: "flex", alignItems: "center", justifyContent: "center", padding: 0 }}>
+              <motion.span key={lightMode ? "sun" : "moon"} initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} transition={{ duration: 0.3 }} style={{ display: "flex" }}>
+                {lightMode ? <SunIcon size={16} /> : <MoonIcon size={16} />}
+              </motion.span>
+            </motion.button>
           </div>
         )}
         {isMobile && (
-          <button onClick={() => setMenuOpen(o => !o)} style={{ background: "none", border: "none", cursor: "pointer", color: T.text, display: "flex", alignItems: "center", padding: "0.25rem" }}>
-            {menuOpen ? <CloseIcon size={22} /> : <MenuIcon size={22} />}
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <motion.button onClick={onToggleTheme} whileTap={{ scale: 0.9 }}
+              aria-label={lightMode ? "Switch to dark mode" : "Switch to light mode"}
+              style={{ background: "none", border: `1px solid ${T.border}`, borderRadius: "50%", width: 34, height: 34, cursor: "pointer", color: T.text, display: "flex", alignItems: "center", justifyContent: "center", padding: 0 }}>
+              {lightMode ? <SunIcon size={16} /> : <MoonIcon size={16} />}
+            </motion.button>
+            <button onClick={() => setMenuOpen(o => !o)} style={{ background: "none", border: "none", cursor: "pointer", color: T.text, display: "flex", alignItems: "center", padding: "0.25rem" }}>
+              {menuOpen ? <CloseIcon size={22} /> : <MenuIcon size={22} />}
+            </button>
+          </div>
         )}
       </div>
       {isMobile && menuOpen && (
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-          style={{ borderTop: `1px solid ${T.border}`, padding: "1rem 1.5rem 1.5rem", background: "rgba(12,12,12,0.98)" }}>
+          style={{ borderTop: `1px solid ${T.border}`, padding: "1rem 1.5rem 1.5rem", background: T.navMenuBg }}>
           {navLinks.map(l => (
             <button key={l} onClick={() => scrollTo(l.toLowerCase())}
               style={{ display: "block", width: "100%", textAlign: "left", padding: "0.75rem 0", color: T.textDim, fontSize: "0.95rem", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 400, background: "none", border: "none", borderBottom: `1px solid ${T.border}`, cursor: "pointer" }}>{l}</button>
@@ -281,6 +377,7 @@ function Navbar() {
 
 // ─── HERO ────────────────────────────────────────────────────────────────────
 function Hero() {
+  const T = useTheme();
   const [typed, setTyped] = useState("");
   const full = CONFIG.subtitle;
   useEffect(() => {
@@ -290,7 +387,7 @@ function Hero() {
   }, [full]);
   return (
     <section id="hero" style={{ minHeight: "100vh", display: "flex", alignItems: "center", background: T.bg, position: "relative", overflow: "hidden", padding: "0 1.5rem" }}>
-      <div style={{ position: "absolute", inset: 0, opacity: 0.04, pointerEvents: "none", backgroundImage: "linear-gradient(rgba(215,226,234,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(215,226,234,0.4) 1px, transparent 1px)", backgroundSize: "80px 80px" }} />
+      <div style={{ position: "absolute", inset: 0, opacity: T.mode === "dark" ? 0.04 : 0.5, pointerEvents: "none", backgroundImage: `linear-gradient(${T.gridLine} 1px, transparent 1px), linear-gradient(90deg, ${T.gridLine} 1px, transparent 1px)`, backgroundSize: "80px 80px" }} />
       <div style={{ position: "absolute", top: "20%", right: "8%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(113,113,122,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
       <div style={{ position: "absolute", bottom: "15%", left: "2%", width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, rgba(113,113,122,0.04) 0%, transparent 70%)", pointerEvents: "none" }} />
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 1, paddingTop: "5rem", width: "100%" }}>
@@ -301,9 +398,11 @@ function Hero() {
           </div>
         </FadeIn>
         <FadeIn delay={0.15} y={40}>
-          <h1 style={{ fontFamily: "'Kanit', sans-serif", fontSize: "clamp(2.8rem, 9vw, 6.5rem)", fontWeight: 900, lineHeight: 1.05, margin: "0 0 0.5rem", letterSpacing: "-0.03em", background: T.headingGradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-            {CONFIG.name.split(" ")[0]}{" "}
-            <span style={{ WebkitTextFillColor: "transparent", background: "linear-gradient(135deg, #D7E2EA 20%, #71717a 100%)", WebkitBackgroundClip: "text", backgroundClip: "text" }}>
+          <h1 style={{ fontFamily: "'Kanit', sans-serif", fontSize: "clamp(2.8rem, 9vw, 6.5rem)", fontWeight: 900, lineHeight: 1.1, margin: "0 0 0.5rem", letterSpacing: "-0.03em", color: T.text }}>
+            <span style={{ backgroundImage: T.firstNameGradient, WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent", color: "transparent" }}>
+              {CONFIG.name.split(" ")[0]}
+            </span>{" "}
+            <span style={{ backgroundImage: T.nameGradient, WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent", color: "transparent" }}>
               {CONFIG.name.split(" ").slice(1).join(" ")}
             </span>
           </h1>
@@ -344,6 +443,7 @@ function Hero() {
 
 // ─── ABOUT ───────────────────────────────────────────────────────────────────
 function About() {
+  const T = useTheme();
   return (
     <section id="about" style={{ padding: "7rem 1.5rem", background: T.bg }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -385,6 +485,7 @@ function About() {
 const CAT_COLORS = { "Frontend": "#71717a", "Database & DBMS": "#f97316", "Data & Analytics": "#a1a1aa", "Tools": "#eab308" };
 
 function SkillCard({ cat, items, index }) {
+  const T = useTheme();
   const color = CAT_COLORS[cat];
   return (
     <FadeIn delay={index * 0.1}>
@@ -398,7 +499,7 @@ function SkillCard({ cat, items, index }) {
                 <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "1rem", color: T.text, fontWeight: 500 }}>{skill.name}</span>
                 <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.72rem", color: T.textDim, fontWeight: 400 }}>{skill.level}%</span>
               </div>
-              <div style={{ height: 4, background: "rgba(215,226,234,0.1)", borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ height: 4, background: T.trackBg, borderRadius: 4, overflow: "hidden" }}>
                 <motion.div initial={{ width: 0 }} whileInView={{ width: `${skill.level}%` }} viewport={{ once: true }}
                   transition={{ duration: 1, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
                   style={{ height: "100%", background: color, borderRadius: 4 }} />
@@ -412,6 +513,7 @@ function SkillCard({ cat, items, index }) {
 }
 
 function Skills() {
+  const T = useTheme();
   return (
     <section id="skills" style={{ padding: "7rem 1.5rem", background: T.bg, borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}` }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -426,6 +528,7 @@ function Skills() {
 
 // ─── PROJECTS (STICKY CARDS) ─────────────────────────────────────────────────
 function ProjectCard({ p, index, total }) {
+  const T = useTheme();
   const cardRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: cardRef, offset: ["start end", "end start"] });
   const targetScale = 1 - (total - 1 - index) * 0.03;
@@ -436,7 +539,7 @@ function ProjectCard({ p, index, total }) {
         <div style={{ padding: "clamp(1.5rem, 4vw, 2.5rem)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.2rem", gap: "1rem", flexWrap: "wrap" }}>
             <div>
-              <div style={{ fontFamily: "'Kanit', sans-serif", fontSize: "clamp(2.8rem, 7vw, 4.5rem)", fontWeight: 900, color: "rgba(215,226,234,0.06)", lineHeight: 1, letterSpacing: "-0.03em" }}>
+              <div style={{ fontFamily: "'Kanit', sans-serif", fontSize: "clamp(2.8rem, 7vw, 4.5rem)", fontWeight: 900, color: T.faintNumber, lineHeight: 1, letterSpacing: "-0.03em" }}>
                 {String(index + 1).padStart(2, "0")}
               </div>
               <h3 style={{ fontFamily: "'Kanit', sans-serif", fontSize: "clamp(1.2rem, 3vw, 1.6rem)", fontWeight: 700, color: T.text, margin: "0.25rem 0 0.6rem" }}>{p.title || p.name}</h3>
@@ -461,6 +564,7 @@ function ProjectCard({ p, index, total }) {
 }
 
 function Projects() {
+  const T = useTheme();
   return (
     <section id="projects" style={{ padding: "7rem 1.5rem", background: T.bg, position: "relative" }}>
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
@@ -477,13 +581,14 @@ function Projects() {
 
 // ─── INSIGHTS (LIVE GITHUB) ─────────────────────────────────────────────────
 function Insights() {
+  const T = useTheme();
   const [isMobile, setIsMobile] = useState(false);
   const [ghData, setGhData] = useState({ loading: true, barData: [], lineData: [], langData: [], publicRepos: 0, followers: 0 });
   useEffect(() => {
     setIsMobile(window.innerWidth <= 640);
     fetchGitHubData(CONFIG.github).then(data => { if (data) setGhData(data); });
   }, []);
-  const tt = { background: "#1a1a1a", border: `1px solid ${T.border}`, borderRadius: 10, fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.78rem", color: T.text, fontWeight: 400 };
+  const tt = { background: T.tooltipBg, border: `1px solid ${T.border}`, borderRadius: 10, fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.78rem", color: T.text, fontWeight: 400 };
   const chartHeight = isMobile ? 180 : 220;
   return (
     <section id="insights" style={{ padding: "7rem 1.5rem", background: T.bgAlt, borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}` }}>
@@ -512,10 +617,10 @@ function Insights() {
               ) : (
                 <ResponsiveContainer width="100%" height={chartHeight}>
                   <BarChart data={ghData.barData} margin={{ top: 0, right: 0, left: isMobile ? -28 : -24, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(215,226,234,0.06)" />
+                    <CartesianGrid strokeDasharray="3 3" stroke={T.chartGrid} />
                     <XAxis dataKey="month" tick={{ fill: T.textDim, fontSize: isMobile ? 10 : 11, fontFamily: "Space Grotesk" }} axisLine={false} tickLine={false} />
                     <YAxis tick={{ fill: T.textDim, fontSize: isMobile ? 10 : 11, fontFamily: "Space Grotesk" }} axisLine={false} tickLine={false} />
-                    <Tooltip contentStyle={tt} cursor={{ fill: "rgba(113,113,122,0.04)" }} />
+                    <Tooltip contentStyle={tt} cursor={{ fill: T.accentDim }} />
                     <Bar dataKey="commits" fill={T.accent} radius={[5, 5, 0, 0]} opacity={0.75} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -533,11 +638,11 @@ function Insights() {
               ) : (
                 <ResponsiveContainer width="100%" height={chartHeight}>
                   <LineChart data={ghData.lineData} margin={{ top: 0, right: 0, left: isMobile ? -28 : -24, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(215,226,234,0.06)" />
+                    <CartesianGrid strokeDasharray="3 3" stroke={T.chartGrid} />
                     <XAxis dataKey="week" tick={{ fill: T.textDim, fontSize: isMobile ? 10 : 11, fontFamily: "Space Grotesk" }} axisLine={false} tickLine={false} />
                     <YAxis tick={{ fill: T.textDim, fontSize: isMobile ? 10 : 11, fontFamily: "Space Grotesk" }} axisLine={false} tickLine={false} />
                     <Tooltip contentStyle={tt} />
-                    <Line type="monotone" dataKey="html" stroke="#D7E2EA" strokeWidth={2.5} dot={false} />
+                    <Line type="monotone" dataKey="html" stroke={T.chartHtml} strokeWidth={2.5} dot={false} />
                     <Line type="monotone" dataKey="css" stroke="#71717a" strokeWidth={2.5} dot={false} />
                     <Line type="monotone" dataKey="js" stroke="#f97316" strokeWidth={2.5} dot={false} />
                     <Line type="monotone" dataKey="sql" stroke="#71717a" strokeWidth={2.5} dot={false} />
@@ -545,7 +650,7 @@ function Insights() {
                 </ResponsiveContainer>
               )}
               <div style={{ display: "flex", gap: isMobile ? "0.85rem" : "1.4rem", marginTop: "1.1rem", justifyContent: "center", flexWrap: "wrap" }}>
-                {[["HTML", "#D7E2EA"], ["CSS", "#71717a"], ["JS", "#f97316"], ["SQL", "#a1a1aa"]].map(([l, c]) => (
+                {[["HTML", T.chartHtml], ["CSS", "#71717a"], ["JS", "#f97316"], ["SQL", "#a1a1aa"]].map(([l, c]) => (
                   <span key={l} style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.72rem", color: T.textDim, fontWeight: 400 }}>
                     <span style={{ width: 16, height: 2.5, background: c, display: "inline-block", borderRadius: 1 }} />{l}
                   </span>
@@ -566,6 +671,7 @@ function Insights() {
 
 // ─── EDUCATION ───────────────────────────────────────────────────────────────
 function Education() {
+  const T = useTheme();
   return (
     <section id="education" style={{ padding: "7rem 1.5rem", background: T.bg }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -578,7 +684,7 @@ function Education() {
                   <h3 style={{ fontFamily: "'Kanit', sans-serif", fontSize: "1.2rem", fontWeight: 800, color: T.text, margin: 0 }}>{EDUCATION.degree}</h3>
                   <p style={{ color: T.textDim, margin: "0.4rem 0 0", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.95rem", fontWeight: 400 }}>{CONFIG.college}</p>
                 </div>
-                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.72rem", color: T.textDim, background: "rgba(215,226,234,0.06)", padding: "0.3rem 0.7rem", borderRadius: 6, whiteSpace: "nowrap", fontWeight: 400 }}>{EDUCATION.duration}</span>
+                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.72rem", color: T.textDim, background: T.badgeBg, padding: "0.3rem 0.7rem", borderRadius: 6, whiteSpace: "nowrap", fontWeight: 400 }}>{EDUCATION.duration}</span>
               </div>
               <div style={{ marginTop: "1rem", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.78rem", color: T.textDim, fontWeight: 400 }}>{CONFIG.semester}</div>
             </div>
@@ -601,6 +707,7 @@ function Education() {
 
 // ─── ACHIEVEMENTS ────────────────────────────────────────────────────────────
 function Achievements() {
+  const T = useTheme();
   return (
     <section id="achievements" style={{ padding: "7rem 1.5rem", background: T.bgAlt, borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}` }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -608,7 +715,7 @@ function Achievements() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
           {ACHIEVEMENTS.map((a, i) => (
             <FadeIn key={a.title} delay={i * 0.1}>
-              <motion.div whileHover={{ y: -4, borderColor: "rgba(215,226,234,0.3)" }}
+              <motion.div whileHover={{ y: -4, borderColor: T.hoverBorder }}
                 style={{ padding: "1.5rem", borderRadius: 18, background: T.bg, border: `1px solid ${T.border}`, transition: "border-color 0.3s" }}>
                 <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.62rem", color: T.accent, marginBottom: "0.75rem", letterSpacing: "0.1em", fontWeight: 500 }}>CERTIFIED</div>
                 <h4 style={{ fontFamily: "'Kanit', sans-serif", fontWeight: 700, color: T.text, margin: "0 0 0.4rem", fontSize: "1rem" }}>{a.title}</h4>
@@ -625,6 +732,7 @@ function Achievements() {
 
 // ─── CONTACT ─────────────────────────────────────────────────────────────────
 function Contact() {
+  const T = useTheme();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState({});
   const [sent, setSent] = useState(false);
@@ -677,7 +785,7 @@ function Contact() {
                       <label style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.7rem", color: T.textDim, textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.4rem", fontWeight: 400 }}>{field.label}</label>
                       <input type={field.type} value={form[field.key]} placeholder={field.placeholder}
                         onChange={e => { setForm(f => ({ ...f, [field.key]: e.target.value })); setErrors(er => ({ ...er, [field.key]: undefined })); }}
-                        onFocus={e => { e.target.style.borderColor = "rgba(215,226,234,0.3)"; }}
+                        onFocus={e => { e.target.style.borderColor = T.inputFocus; }}
                         onBlur={e => { e.target.style.borderColor = errors[field.key] ? "rgba(220,38,38,0.4)" : T.border; }}
                         style={inp(errors[field.key])} />
                       {errors[field.key] && <div style={{ color: T.danger, fontSize: "0.75rem", marginTop: "0.3rem", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 400 }}>{errors[field.key]}</div>}
@@ -687,7 +795,7 @@ function Contact() {
                     <label style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.7rem", color: T.textDim, textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.4rem", fontWeight: 400 }}>Message</label>
                     <textarea value={form.message} rows={4} placeholder="Your message..."
                       onChange={e => { setForm(f => ({ ...f, message: e.target.value })); setErrors(er => ({ ...er, message: undefined })); }}
-                      onFocus={e => { e.target.style.borderColor = "rgba(215,226,234,0.3)"; }}
+                      onFocus={e => { e.target.style.borderColor = T.inputFocus; }}
                       onBlur={e => { e.target.style.borderColor = errors.message ? "rgba(220,38,38,0.4)" : T.border; }}
                       style={{ ...inp(errors.message), resize: "vertical", minHeight: 100 }} />
                     {errors.message && <div style={{ color: T.danger, fontSize: "0.75rem", marginTop: "0.3rem", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 400 }}>{errors.message}</div>}
@@ -704,7 +812,6 @@ function Contact() {
   );
 }
 
-// ─── ANIMATED LOGO ──────────────────────────────────────────────────────────
 // ─── ASK HIMANSHU CHATBOT ───────────────────────────────────────────────────
 const SUGGESTED_QUESTIONS = [
   "What is Himanshu working on?",
@@ -716,6 +823,7 @@ const SUGGESTED_QUESTIONS = [
 ];
 
 function AskHimanshu() {
+  const T = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -769,8 +877,8 @@ function AskHimanshu() {
         style={{
           position: "fixed", bottom: "1.5rem", right: "1.5rem", zIndex: 200,
           width: 60, height: 60, borderRadius: "50%",
-          background: isOpen ? "#1a1a1a" : "linear-gradient(135deg, #71717a, #52525b)",
-          border: `2px solid ${isOpen ? "rgba(215,226,234,0.25)" : "rgba(113,113,122,0.5)"}`,
+          background: isOpen ? T.toggleOpenBg : "linear-gradient(135deg, #71717a, #52525b)",
+          border: `2px solid ${isOpen ? T.chatBorder : "rgba(113,113,122,0.5)"}`,
           color: T.text, cursor: "pointer",
           display: "flex", alignItems: "center", justifyContent: "center",
           fontFamily: "'Kanit', sans-serif", fontSize: "0.55rem", fontWeight: 700,
@@ -790,20 +898,20 @@ function AskHimanshu() {
             style={{
               position: "fixed", bottom: "5.5rem", right: "1.5rem", zIndex: 200,
               width: "min(420px, calc(100vw - 3rem))", height: "min(600px, calc(100vh - 8rem))",
-              background: "rgba(12,12,12,0.94)",
+              background: T.chatBg,
               backdropFilter: "blur(24px)",
               WebkitBackdropFilter: "blur(24px)",
-              border: "1px solid rgba(215,226,234,0.18)",
+              border: `1px solid ${T.chatBorder}`,
               borderRadius: 24,
               display: "flex", flexDirection: "column", overflow: "hidden",
-              boxShadow: "0 16px 56px rgba(0,0,0,0.65), 0 0 0 1px rgba(215,226,234,0.06) inset",
+              boxShadow: T.shadow,
             }}>
             {/* Header */}
             <div style={{
               padding: "1rem 1.35rem",
-              borderBottom: "1px solid rgba(215,226,234,0.1)",
+              borderBottom: `1px solid ${T.chatBorderSoft}`,
               display: "flex", alignItems: "center", gap: "0.75rem",
-              background: "rgba(17,17,17,0.7)",
+              background: T.chatHeaderBg,
             }}>
               <motion.div
                 animate={{ rotate: [0, 360] }}
@@ -845,12 +953,12 @@ function AskHimanshu() {
                       onClick={() => sendMessage(q)}
                       style={{
                         textAlign: "left", padding: "0.65rem 1rem", borderRadius: 12,
-                        background: "rgba(255,255,255,0.03)", border: "1px solid rgba(215,226,234,0.1)",
+                        background: T.suggestBg, border: `1px solid ${T.chatBorderSoft}`,
                         color: T.text, fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.85rem",
                         cursor: "pointer", transition: "border-color 0.2s, background 0.2s",
                       }}
-                      onMouseEnter={e => { e.target.style.borderColor = "rgba(113,113,122,0.35)"; e.target.style.background = "rgba(255,255,255,0.05)"; }}
-                      onMouseLeave={e => { e.target.style.borderColor = "rgba(215,226,234,0.1)"; e.target.style.background = "rgba(255,255,255,0.03)"; }}
+                      onMouseEnter={e => { e.target.style.borderColor = T.inputFocus; e.target.style.background = T.suggestBgHover; }}
+                      onMouseLeave={e => { e.target.style.borderColor = T.chatBorderSoft; e.target.style.background = T.suggestBg; }}
                     >{q}</motion.button>
                   ))}
                 </div>
@@ -862,8 +970,8 @@ function AskHimanshu() {
                     maxWidth: "88%",
                     padding: "0.75rem 1.1rem",
                     borderRadius: msg.role === "user" ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
-                    background: msg.role === "user" ? "rgba(113,113,122,0.18)" : "rgba(255,255,255,0.04)",
-                    border: `1px solid ${msg.role === "user" ? "rgba(113,113,122,0.3)" : "rgba(215,226,234,0.1)"}`,
+                    background: msg.role === "user" ? T.accentDim : T.bubbleBot,
+                    border: `1px solid ${msg.role === "user" ? T.inputFocus : T.chatBorderSoft}`,
                   }}>
                   <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.9rem", color: T.text, lineHeight: 1.6, fontWeight: 400, whiteSpace: "pre-wrap" }}>
                     {msg.text}
@@ -872,7 +980,7 @@ function AskHimanshu() {
               ))}
               {loading && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                  style={{ alignSelf: "flex-start", padding: "0.75rem 1.1rem", borderRadius: "16px 16px 16px 4px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(215,226,234,0.1)" }}>
+                  style={{ alignSelf: "flex-start", padding: "0.75rem 1.1rem", borderRadius: "16px 16px 16px 4px", background: T.bubbleBot, border: `1px solid ${T.chatBorderSoft}` }}>
                   <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
                     {[0, 1, 2].map(i => (
                       <motion.div key={i} animate={{ y: [0, -6, 0] }}
@@ -888,21 +996,21 @@ function AskHimanshu() {
             {/* Input */}
             <div style={{
               padding: "0.85rem 1.25rem",
-              borderTop: "1px solid rgba(215,226,234,0.1)",
+              borderTop: `1px solid ${T.chatBorderSoft}`,
               display: "flex", gap: "0.6rem",
-              background: "rgba(17,17,17,0.5)",
+              background: T.chatHeaderBg,
             }}>
               <input value={input} placeholder="Ask about Himanshu..."
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
                 style={{
                   flex: 1, padding: "0.7rem 1rem", borderRadius: 12,
-                  background: "rgba(255,255,255,0.04)", border: "1px solid rgba(215,226,234,0.12)",
+                  background: T.inputBg, border: `1px solid ${T.chatBorderSoft}`,
                   color: T.text, fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: "0.92rem", fontWeight: 400, outline: "none", transition: "border-color 0.2s",
                 }}
-                onFocus={e => { e.target.style.borderColor = "rgba(113,113,122,0.4)"; }}
-                onBlur={e => { e.target.style.borderColor = "rgba(215,226,234,0.12)"; }}
+                onFocus={e => { e.target.style.borderColor = T.inputFocus; }}
+                onBlur={e => { e.target.style.borderColor = T.chatBorderSoft; }}
               />
               <motion.button onClick={() => sendMessage()} disabled={loading || !input.trim()}
                 whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }}
@@ -926,10 +1034,44 @@ function AskHimanshu() {
 
 // ─── APP ─────────────────────────────────────────────────────────────────────
 export default function App() {
+  const [lightMode, setLightMode] = useState(() => {
+    try {
+      const saved = localStorage.getItem("portfolio-theme");
+      if (saved) return saved === "light";
+      return window.matchMedia?.("(prefers-color-scheme: light)").matches ?? false;
+    } catch { return false; }
+  });
+  const theme = useMemo(() => (lightMode ? lightTheme : darkTheme), [lightMode]);
+  const firstPaint = useRef(true);
+
+  const toggleTheme = useCallback(() => {
+    const flip = () => setLightMode(v => !v);
+    try {
+      const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      if (!reduced && document.startViewTransition) {
+        document.startViewTransition(flip);
+        return;
+      }
+    } catch { /* fall through */ }
+    flip();
+  }, []);
+
   useEffect(() => { document.title = "Himanshu Gupta - Portfolio"; }, []);
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", lightMode ? "light" : "dark");
+    document.body.style.background = theme.bg;
+    document.body.style.color = theme.text;
+    try { localStorage.setItem("portfolio-theme", lightMode ? "light" : "dark"); } catch { /* ignore */ }
+    // Smoothly fade every surface on theme change (skipped on first paint).
+    if (firstPaint.current) { firstPaint.current = false; return; }
+    document.documentElement.classList.add("theme-animating");
+    const t = setTimeout(() => document.documentElement.classList.remove("theme-animating"), 450);
+    return () => clearTimeout(t);
+  }, [lightMode, theme]);
+
   return (
-    <>
-      <Navbar />
+    <ThemeContext.Provider value={theme}>
+      <Navbar lightMode={lightMode} onToggleTheme={toggleTheme} />
       <main>
         <Hero />
         <About />
@@ -940,12 +1082,12 @@ export default function App() {
         <Achievements />
         <Contact />
       </main>
-      <footer style={{ borderTop: `1px solid ${T.border}`, padding: "2rem", textAlign: "center", background: T.bg }}>
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.72rem", color: T.textDim, userSelect: "none", fontWeight: 400 }}>
+      <footer style={{ borderTop: `1px solid ${theme.border}`, padding: "2rem", textAlign: "center", background: theme.bg, transition: "background-color 0.3s ease, border-color 0.3s ease" }}>
+        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.72rem", color: theme.textDim, userSelect: "none", fontWeight: 400 }}>
           © {new Date().getFullYear()} {CONFIG.name} · Built with React · Gemini AI
         </div>
       </footer>
       <AskHimanshu />
-    </>
+    </ThemeContext.Provider>
   );
 }
