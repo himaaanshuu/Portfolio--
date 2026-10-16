@@ -344,8 +344,8 @@ function Navbar({ lightMode, onToggleTheme }) {
   return (
     <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: scrolled || menuOpen ? T.navBg : "transparent", backdropFilter: scrolled ? "blur(12px)" : "none", borderBottom: scrolled ? `1px solid ${T.border}` : "none", transition: "all 0.3s ease", padding: "0 1.5rem" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
-        <a href="#hero" style={{ fontFamily: "'Kanit', sans-serif", color: T.text, fontSize: "1.1rem", fontWeight: 700, textDecoration: "none" }}>
-          {CONFIG.name.split(" ")[0]}<span style={{ color: T.accent }}>.dev</span>
+        <a href="#hero" style={{ fontFamily: "'Kanit', sans-serif", color: T.accent, fontSize: "1.1rem", fontWeight: 700, textDecoration: "none" }}>
+          {CONFIG.name.split(" ")[0]}<span style={{ color: T.text }}>.dev</span>
         </a>
         {!isMobile && (
           <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
@@ -420,6 +420,8 @@ const PREY_TECH = ["React", "Python", "SQL", "Node.js", "MongoDB", "Docker", "Ja
 
 function SnakeGame() {
   const T = useTheme();
+  const mobile = useIsMobile();
+  const [heroVisible, setHeroVisible] = useState(true);
   const canvasRef = useRef(null);
   const themeRef = useRef(T);
   themeRef.current = T;
@@ -438,8 +440,17 @@ function SnakeGame() {
     return () => window.removeEventListener("pointermove", onMove);
   }, []);
 
+  // Pause when the hero scrolls out of view
   useEffect(() => {
-    if (reducedMotion) return;
+    const hero = document.getElementById("hero");
+    if (!hero || typeof IntersectionObserver === "undefined") return;
+    const obs = new IntersectionObserver(([e]) => setHeroVisible(e.isIntersecting), { threshold: 0 });
+    obs.observe(hero);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion || !heroVisible) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -448,12 +459,14 @@ function SnakeGame() {
     let raf = 0, w = 0, h = 0;
     const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
     const fit = () => {
-      const nw = window.innerWidth, nh = window.innerHeight;
+      const r = canvas.parentElement.getBoundingClientRect();
+      const nw = Math.max(1, r.width), nh = Math.max(1, r.height);
       if (nw !== w || nh !== h) {
         w = nw; h = nh;
         canvas.width = w * DPR; canvas.height = h * DPR;
         ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
       }
+      return r;
     };
     fit();
 
@@ -464,7 +477,7 @@ function SnakeGame() {
       const pool = free.length ? free : PREY_TECH;
       return pool[Math.floor(Math.random() * pool.length)];
     };
-    let x = window.innerWidth * 0.6, y = window.innerHeight * 0.35;
+    let x = w * 0.5, y = h * 0.4;
     let angle = Math.PI * 0.75, t = Math.random() * 100;
     const segs = Array.from({ length: N }, () => ({ x, y }));
 
@@ -505,12 +518,14 @@ function SnakeGame() {
       ctx.fillRect(0, 0, w, h);
       ctx.globalCompositeOperation = "source-over";
 
-      // Chase a fresh pointer, otherwise wander
+      // Chase a fresh pointer (converted to canvas-local coords), otherwise wander
       const P = pointerRef.current;
+      const box = canvas.getBoundingClientRect();
+      const mx = P.x - box.left, my = P.y - box.top;
       const chasing = performance.now() - P.t < 2500 && P.x >= 0 && P.y >= 0;
       let speed = 1.7;
       if (chasing) {
-        const want = Math.atan2(P.y - y, P.x - x);
+        const want = Math.atan2(my - y, mx - x);
         let d = want - angle;
         while (d > Math.PI) d -= Math.PI * 2;
         while (d < -Math.PI) d += Math.PI * 2;
@@ -623,12 +638,15 @@ function SnakeGame() {
     };
     raf = requestAnimationFrame(frame);
     return () => cancelAnimationFrame(raf);
-  }, [reducedMotion]);
+  }, [reducedMotion, heroVisible]);
 
   if (reducedMotion) return null;
+  // Desktop: right half of the hero. Mobile: full-bleed, subtler, behind text.
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden", pointerEvents: "none", opacity: T.mode === "dark" ? 0.8 : 0.65 }}>
-      <canvas ref={canvasRef} style={{ width: "100vw", height: "100vh", display: "block" }} />
+    <div style={mobile
+      ? { position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", opacity: T.mode === "dark" ? 0.4 : 0.32 }
+      : { position: "absolute", top: 0, right: 0, bottom: 0, left: "52%", overflow: "hidden", pointerEvents: "none", opacity: T.mode === "dark" ? 0.8 : 0.65 }}>
+      <canvas ref={canvasRef} style={{ width: "100%", height: "100%", display: "block" }} />
     </div>
   );
 }
@@ -645,6 +663,7 @@ function Hero() {
   }, [full]);
   return (
     <section id="hero" style={{ display: "flex", alignItems: "center", background: "transparent", position: "relative", overflow: "hidden", padding: "0 1.5rem" }}>
+      <SnakeGame />
       <div style={{ position: "absolute", top: "20%", right: "8%", width: 500, height: 500, borderRadius: "50%", background: T.mode === "dark" ? "radial-gradient(circle, rgba(113,113,122,0.06) 0%, transparent 70%)" : "radial-gradient(circle, rgba(234,88,12,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
       <div style={{ position: "absolute", bottom: "15%", left: "2%", width: 300, height: 300, borderRadius: "50%", background: T.mode === "dark" ? "radial-gradient(circle, rgba(113,113,122,0.04) 0%, transparent 70%)" : "radial-gradient(circle, rgba(194,65,12,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 1, paddingTop: "5rem", width: "100%" }}>
@@ -1335,7 +1354,6 @@ export default function App() {
 
   return (
     <ThemeContext.Provider value={theme}>
-      <SnakeGame />
       <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", opacity: theme.mode === "dark" ? 0.05 : 0.6, backgroundImage: `linear-gradient(${theme.gridLine} 1px, transparent 1px), linear-gradient(90deg, ${theme.gridLine} 1px, transparent 1px)`, backgroundSize: "80px 80px" }} />
       <Navbar lightMode={lightMode} onToggleTheme={toggleTheme} />
       <main>
