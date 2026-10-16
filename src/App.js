@@ -1322,8 +1322,8 @@ export default function App() {
     try {
       const base = process.env.PUBLIC_URL || "";
       const variant = lightMode ? "light" : "dark";
-      document.querySelector("#favicon-svg")?.setAttribute("href", `${base}/favicon-${variant}.svg`);
-      document.querySelector("#favicon-ico")?.setAttribute("href", `${base}/favicon${variant === "light" ? "-light" : ""}.ico`);
+      document.querySelector("#favicon-svg")?.setAttribute("href", `${base}/favicon-${variant}.svg?v=2`);
+      document.querySelector("#favicon-ico")?.setAttribute("href", `${base}/favicon${variant === "light" ? "-light" : ""}.ico?v=2`);
     } catch { /* ignore */ }
     try { localStorage.setItem("portfolio-theme", lightMode ? "light" : "dark"); } catch { /* ignore */ }
     // Smoothly fade every surface on theme change (skipped on first paint).
