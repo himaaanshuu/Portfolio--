@@ -11,7 +11,7 @@ html {
 }
 
 html[data-theme="light"] {
-  background: #F4F5F7;
+  background: #FAF6EF;
 }
 
 body {
@@ -27,6 +27,18 @@ body {
 
 section, nav, footer {
   transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ─── SNAKE GAME LAYER ───────────────────────────────────────────────────── */
+main, footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── GRID SAFETY ────────────────────────────────────────────────────────── */
+.two-col > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 code {
@@ -147,11 +159,47 @@ code {
   background: rgba(215, 226, 234, 0.03);
 }
 
+/* ─── HERO VIEWPORT (mobile browser chrome safe) ───────────────────────── */
+#hero {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+/* ─── TOUCH ──────────────────────────────────────────────────────────────── */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+button, a {
+  touch-action: manipulation;
+}
+
 /* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .two-col {
     grid-template-columns: 1fr !important;
     gap: 2rem !important;
+  }
+  /* Tighter rhythm on small screens (overrides inline section padding) */
+  section:not(#hero) {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  /* Prevent iOS Safari auto-zoom on form focus (overrides inline sizes) */
+  input, textarea {
+    font-size: 16px !important;
+  }
+  .course-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cta-primary, .cta-secondary {
+    padding: 0.9rem 1.4rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-text {
+    font-size: 0.98rem;
   }
 }
 
@@ -179,50 +227,53 @@ html.theme-animating *::after {
   animation-duration: 0.35s;
 }
 
-/* ─── LIGHT MODE OVERRIDES ─────────────────────────────────────────────── */
+/* ─── LIGHT MODE OVERRIDES (warm cream / beige / orange) ───────────────── */
 html[data-theme="light"] ::-webkit-scrollbar-track {
-  background: #F4F5F7;
+  background: #FAF6EF;
 }
 html[data-theme="light"] ::-webkit-scrollbar-thumb {
-  background: rgba(20, 30, 40, 0.18);
+  background: rgba(194, 65, 12, 0.28);
 }
 html[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
-  background: rgba(20, 30, 40, 0.3);
+  background: rgba(194, 65, 12, 0.45);
 }
 html[data-theme="light"] ::selection {
-  background: rgba(82, 82, 91, 0.25);
-  color: #0C0C0C;
+  background: rgba(234, 88, 12, 0.22);
+  color: #431407;
+}
+html[data-theme="light"] .cta-primary {
+  background: #EA580C;
 }
 html[data-theme="light"] .cta-secondary {
-  color: #1A2230;
-  border-color: rgba(20, 30, 40, 0.18);
+  color: #7C2D12;
+  border-color: rgba(194, 65, 12, 0.22);
 }
 html[data-theme="light"] .cta-secondary:hover {
-  border-color: rgba(20, 30, 40, 0.4);
-  color: #0C0C0C;
+  border-color: rgba(234, 88, 12, 0.55);
+  color: #EA580C;
 }
 html[data-theme="light"] .icon-btn {
-  border-color: rgba(20, 30, 40, 0.12);
-  background: rgba(20, 30, 40, 0.04);
-  color: #1A2230;
+  border-color: rgba(194, 65, 12, 0.14);
+  background: rgba(234, 88, 12, 0.05);
+  color: #7C2D12;
 }
 html[data-theme="light"] .icon-btn:hover {
-  background: rgba(20, 30, 40, 0.08);
-  border-color: rgba(20, 30, 40, 0.25);
+  background: rgba(234, 88, 12, 0.1);
+  border-color: rgba(234, 88, 12, 0.4);
 }
 html[data-theme="light"] .about-text {
-  color: rgba(26, 34, 48, 0.72);
+  color: rgba(124, 45, 18, 0.74);
 }
 html[data-theme="light"] .contact-link {
-  background: #FFFFFF;
-  border-color: rgba(20, 30, 40, 0.12);
+  background: #FFFDF8;
+  border-color: rgba(194, 65, 12, 0.14);
 }
 html[data-theme="light"] .contact-link:hover {
-  border-color: rgba(20, 30, 40, 0.3);
-  background: rgba(20, 30, 40, 0.02);
+  border-color: rgba(234, 88, 12, 0.4);
+  background: rgba(234, 88, 12, 0.03);
 }
 html[data-theme="light"] div::-webkit-scrollbar-thumb {
-  background: rgba(20, 30, 40, 0.18);
+  background: rgba(194, 65, 12, 0.28);
 }
 
 /* ─── REDUCED MOTION ─────────────────────────────────────────────────────── */

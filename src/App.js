@@ -24,6 +24,9 @@ const darkTheme = {
   nameGradient: "linear-gradient(135deg, #FFFFFF 10%, #71717a 100%)",
   coral: "#f97316",
   coralDim: "rgba(249,115,22,0.15)",
+  assistant: "linear-gradient(135deg, #f97316, #c2410c)",
+  assistantGlow: "rgba(249,115,22,0.45)",
+  assistantGlowSoft: "rgba(249,115,22,0.2)",
   success: "#059669",
   danger: "#dc2626",
   gridLine: "rgba(215,226,234,0.4)",
@@ -47,52 +50,70 @@ const darkTheme = {
   inputBg: "rgba(255,255,255,0.04)",
   toggleOpenBg: "#1a1a1a",
   shadow: "0 16px 56px rgba(0,0,0,0.65), 0 0 0 1px rgba(215,226,234,0.06) inset",
+  catColors: { "Frontend": "#71717a", "Database & DBMS": "#f97316", "Data & Analytics": "#a1a1aa", "Tools": "#eab308" },
 };
 
 const lightTheme = {
   mode: "light",
-  bg: "#F4F5F7",
-  bgAlt: "#FFFFFF",
-  border: "rgba(20,30,40,0.12)",
-  accent: "#52525b",
-  accentDim: "rgba(82,82,91,0.1)",
-  nardo: "#52525b",
-  nardoDim: "rgba(82,82,91,0.1)",
-  text: "#1A2230",
-  textDim: "rgba(26,34,48,0.62)",
-  textBright: "#0C0C0C",
-  headingGradient: "linear-gradient(180deg, #566074 0%, #0E1524 100%)",
-  firstNameGradient: "linear-gradient(180deg, #0E1524 20%, #3A4356 100%)",
-  nameGradient: "linear-gradient(135deg, #52525b 10%, #ea580c 100%)",
-  coral: "#ea580c",
-  coralDim: "rgba(234,88,12,0.1)",
-  success: "#059669",
-  danger: "#dc2626",
-  gridLine: "rgba(20,30,40,0.12)",
-  chartGrid: "rgba(20,30,40,0.08)",
-  chartHtml: "#334155",
-  tooltipBg: "#FFFFFF",
-  trackBg: "rgba(20,30,40,0.08)",
-  faintNumber: "rgba(20,30,40,0.07)",
-  badgeBg: "rgba(20,30,40,0.05)",
-  hoverBorder: "rgba(20,30,40,0.28)",
-  inputFocus: "rgba(82,82,91,0.45)",
-  navBg: "rgba(244,245,247,0.9)",
-  navMenuBg: "rgba(255,255,255,0.98)",
-  chatBg: "rgba(255,255,255,0.94)",
-  chatHeaderBg: "rgba(244,245,247,0.85)",
-  chatBorder: "rgba(20,30,40,0.14)",
-  chatBorderSoft: "rgba(20,30,40,0.1)",
-  bubbleBot: "rgba(20,30,40,0.04)",
-  suggestBg: "rgba(20,30,40,0.03)",
-  suggestBgHover: "rgba(20,30,40,0.06)",
-  inputBg: "rgba(20,30,40,0.03)",
-  toggleOpenBg: "#FFFFFF",
-  shadow: "0 16px 56px rgba(20,30,40,0.18), 0 0 0 1px rgba(20,30,40,0.05) inset",
+  bg: "#FAF6EF",
+  bgAlt: "#FFFDF8",
+  border: "rgba(194,65,12,0.14)",
+  accent: "#EA580C",
+  accentDim: "rgba(234,88,12,0.12)",
+  nardo: "#F97316",
+  nardoDim: "rgba(249,115,22,0.14)",
+  text: "#7C2D12",
+  textDim: "rgba(124,45,18,0.66)",
+  textBright: "#431407",
+  headingGradient: "linear-gradient(180deg, #9A3412, #9A3412)",
+  firstNameGradient: "linear-gradient(180deg, #EA580C, #EA580C)",
+  nameGradient: "linear-gradient(135deg, #7C2D12, #7C2D12)",
+  coral: "#EA580C",
+  coralDim: "rgba(234,88,12,0.12)",
+  assistant: "linear-gradient(135deg, #ea580c, #c2410c)",
+  assistantGlow: "rgba(234,88,12,0.4)",
+  assistantGlowSoft: "rgba(234,88,12,0.18)",
+  success: "#C2410C",
+  danger: "#9A3412",
+  gridLine: "rgba(194,65,12,0.12)",
+  chartGrid: "rgba(194,65,12,0.1)",
+  chartHtml: "#9A3412",
+  tooltipBg: "#FFFDF8",
+  trackBg: "rgba(194,65,12,0.1)",
+  faintNumber: "#EA580C",
+  badgeBg: "rgba(234,88,12,0.08)",
+  hoverBorder: "rgba(194,65,12,0.4)",
+  inputFocus: "rgba(234,88,12,0.55)",
+  navBg: "rgba(250,246,239,0.9)",
+  navMenuBg: "rgba(255,253,248,0.98)",
+  chatBg: "rgba(255,253,248,0.94)",
+  chatHeaderBg: "rgba(250,246,239,0.85)",
+  chatBorder: "rgba(194,65,12,0.16)",
+  chatBorderSoft: "rgba(194,65,12,0.12)",
+  bubbleBot: "rgba(234,88,12,0.05)",
+  suggestBg: "rgba(234,88,12,0.04)",
+  suggestBgHover: "rgba(234,88,12,0.09)",
+  inputBg: "rgba(234,88,12,0.04)",
+  toggleOpenBg: "#FFFDF8",
+  shadow: "0 16px 56px rgba(154,52,18,0.2), 0 0 0 1px rgba(194,65,12,0.06) inset",
+  catColors: { "Frontend": "#C2410C", "Database & DBMS": "#EA580C", "Data & Analytics": "#9A3412", "Tools": "#F97316" },
 };
 
 const ThemeContext = createContext(darkTheme);
 const useTheme = () => useContext(ThemeContext);
+
+// ─── MOBILE HOOK ─────────────────────────────────────────────────────────────
+function useIsMobile(breakpoint = 768) {
+  const [mobile, setMobile] = useState(() =>
+    typeof window !== "undefined" && window.innerWidth <= breakpoint
+  );
+  useEffect(() => {
+    const onResize = () => setMobile(window.innerWidth <= breakpoint);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [breakpoint]);
+  return mobile;
+}
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 const CONFIG = {
@@ -124,8 +145,8 @@ const EDUCATION = {
 const PROJECTS = [
   { id: "p0", name: "JalDrishti", title: "JalDrishti", description: "JalDrishti is an intelligent groundwater management platform designed to transform complex groundwater data into actionable insights for citizens, researchers, and decision-makers.", language: "Full-Stack", tech: ["React", "Node.js", "AI/ML", "Geospatial", "REST APIs"], html_url: "https://github.com/himaaanshuu/JALDRISTHI", homepage: null },
   { id: "p1", name: "Bitez", title: "Bitez", description: "Campus food ordering experience with a Vite + React frontend and an Express + MongoDB backend. Student and admin authentication (OTP + JWT), order management.", language: "React", tech: ["Vite", "React", "Express", "MongoDB", "JWT"], html_url: "https://github.com/himaaanshuu/BItz", homepage: "https://b-itz-web4.vercel.app" },
-  { id: "p2", name: "Student Performance Analysis", title: "Student Performance Analysis", description: "End-to-end student performance analysis pipeline built with Python and MySQL. Ingests student marks from CSV files, cleans and processes data.", language: "Python", tech: ["Python", "Pandas", "MySQL"], html_url: "https://github.com/himaaanshuu/Student-Performance-Analysis", homepage: null },
-  { id: "p3", name: "Hospital Management System", title: "Hospital Management System", description: "A Java Swing application for managing hospital operations with PostgreSQL database, multithreading, and a professional GUI.", language: "Java", tech: ["Java", "Swing", "PostgreSQL"], html_url: "https://github.com/himaaanshuu/Healthcare-Management-System", homepage: null },
+  { id: "p2", name: "CodeForge AI", title: "CodeForge AI", description: "Autonomous software engineering agent that understands repos, modifies code, runs tests, and diagnoses and repairs failures iteratively before verifying and delivering through GitHub. React + TypeScript frontend, FastAPI + Python backend, NVIDIA Nemotron via Nebius.", language: "Python", tech: ["React", "TypeScript", "FastAPI", "Python", "LLM Agents"], html_url: "https://github.com/himaaanshuu/CODEFORGE", homepage: null },
+  { id: "p3", name: "Catalyst", title: "Catalyst", description: "No-code product catalog SaaS platform for small businesses with mobile-optimized catalogs, WhatsApp ordering, and Razorpay payments. Next.js + React frontend with Supabase auth, PostgreSQL, and row-level security.", language: "JavaScript", tech: ["Next.js", "React", "Supabase", "Razorpay"], html_url: "https://github.com/himaaanshuu/Catalyst", homepage: "https://catalyst-nine-tau.vercel.app" },
 ];
 
 const ACHIEVEMENTS = [
@@ -242,7 +263,9 @@ function AnimatedChar({ char, index, total, scrollYProgress }) {
   const start = index / total;
   const end = start + 1 / total;
   const opacity = useTransform(scrollYProgress, [start, end], [0.2, 1]);
-  return <motion.span style={{ opacity }}>{char === " " ? "\u00A0" : char}</motion.span>;
+  // Plain space (not nbsp) so paragraphs wrap — nbsp made them
+  // unbreakable single lines and blew out the grid columns.
+  return <motion.span style={{ opacity }}>{char}</motion.span>;
 }
 
 function AnimatedText({ text, className = "", style = {} }) {
@@ -285,7 +308,7 @@ function MagneticButton({ children, href, target, className = "", style = {}, on
 function SectionHeader({ tag, title, sub }) {
   const T = useTheme();
   return (
-    <FadeIn style={{ marginBottom: "3.5rem" }}>
+    <FadeIn style={{ marginBottom: "2.25rem" }}>
       <div style={{ fontFamily: "'Space Grotesk', sans-serif", color: T.textDim, fontSize: "0.8rem", marginBottom: "0.6rem", letterSpacing: "0.12em", fontWeight: 400 }}>{`// ${tag}`}</div>
       <h2 style={{ fontFamily: "'Kanit', sans-serif", fontSize: "clamp(2rem, 5vw, 3rem)", fontWeight: 900, margin: 0, letterSpacing: "-0.025em", backgroundImage: T.headingGradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{title}</h2>
       {sub && <p style={{ color: T.textDim, marginTop: "0.6rem", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 400, fontSize: "1.05rem", maxWidth: 600 }}>{sub}</p>}
@@ -296,6 +319,13 @@ function SectionHeader({ tag, title, sub }) {
 // ─── NAVBAR ──────────────────────────────────────────────────────────────────
 function Navbar({ lightMode, onToggleTheme }) {
   const T = useTheme();
+  const [ghGreen, setGhGreen] = useState(false);
+  const ghTimer = useRef(null);
+  const handleGhClick = () => {
+    setGhGreen(true);
+    if (ghTimer.current) clearTimeout(ghTimer.current);
+    ghTimer.current = setTimeout(() => setGhGreen(false), 1200);
+  };
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -331,6 +361,11 @@ function Navbar({ lightMode, onToggleTheme }) {
                 onMouseEnter={e => { e.currentTarget.style.color = "#0a66c2"; }}
                 onMouseLeave={e => { e.currentTarget.style.color = T.textDim; }}><LinkedinIcon size={17} /></a>
             )}
+            <a href={`https://github.com/${CONFIG.github}`} target="_blank" rel="noreferrer" title={`@${CONFIG.github} on GitHub`}
+              onClick={handleGhClick}
+              style={{ color: ghGreen ? "#22c55e" : T.textDim, transition: "color 0.2s", display: "flex" }}
+              onMouseEnter={e => { e.currentTarget.style.color = ghGreen ? "#22c55e" : T.text; }}
+              onMouseLeave={e => { e.currentTarget.style.color = ghGreen ? "#22c55e" : T.textDim; }}><GithubIcon size={17} /></a>
             <motion.button onClick={onToggleTheme} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
               aria-label={lightMode ? "Switch to dark mode" : "Switch to light mode"}
               title={lightMode ? "Switch to dark mode" : "Switch to light mode"}
@@ -345,10 +380,10 @@ function Navbar({ lightMode, onToggleTheme }) {
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <motion.button onClick={onToggleTheme} whileTap={{ scale: 0.9 }}
               aria-label={lightMode ? "Switch to dark mode" : "Switch to light mode"}
-              style={{ background: "none", border: `1px solid ${T.border}`, borderRadius: "50%", width: 34, height: 34, cursor: "pointer", color: T.text, display: "flex", alignItems: "center", justifyContent: "center", padding: 0 }}>
-              {lightMode ? <SunIcon size={16} /> : <MoonIcon size={16} />}
+              style={{ background: "none", border: `1px solid ${T.border}`, borderRadius: "50%", width: 44, height: 44, cursor: "pointer", color: T.text, display: "flex", alignItems: "center", justifyContent: "center", padding: 0 }}>
+              {lightMode ? <SunIcon size={18} /> : <MoonIcon size={18} />}
             </motion.button>
-            <button onClick={() => setMenuOpen(o => !o)} style={{ background: "none", border: "none", cursor: "pointer", color: T.text, display: "flex", alignItems: "center", padding: "0.25rem" }}>
+            <button onClick={() => setMenuOpen(o => !o)} aria-label={menuOpen ? "Close menu" : "Open menu"} style={{ background: "none", border: "none", cursor: "pointer", color: T.text, display: "flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0 }}>
               {menuOpen ? <CloseIcon size={22} /> : <MenuIcon size={22} />}
             </button>
           </div>
@@ -359,7 +394,7 @@ function Navbar({ lightMode, onToggleTheme }) {
           style={{ borderTop: `1px solid ${T.border}`, padding: "1rem 1.5rem 1.5rem", background: T.navMenuBg }}>
           {navLinks.map(l => (
             <button key={l} onClick={() => scrollTo(l.toLowerCase())}
-              style={{ display: "block", width: "100%", textAlign: "left", padding: "0.75rem 0", color: T.textDim, fontSize: "0.95rem", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 400, background: "none", border: "none", borderBottom: `1px solid ${T.border}`, cursor: "pointer" }}>{l}</button>
+              style={{ display: "block", width: "100%", textAlign: "left", padding: "1rem 0", color: T.textDim, fontSize: "1.05rem", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 400, background: "none", border: "none", borderBottom: `1px solid ${T.border}`, cursor: "pointer" }}>{l}</button>
           ))}
           <div style={{ display: "flex", gap: "1rem", marginTop: "1.25rem" }}>
             {CONFIG.linkedin && (
@@ -368,10 +403,233 @@ function Navbar({ lightMode, onToggleTheme }) {
                 <LinkedinIcon size={16} /> LinkedIn
               </a>
             )}
+            <a href={`https://github.com/${CONFIG.github}`} target="_blank" rel="noreferrer"
+              onClick={handleGhClick}
+              style={{ color: ghGreen ? "#22c55e" : T.text, display: "flex", alignItems: "center", gap: "0.4rem", fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.85rem", textDecoration: "none", transition: "color 0.2s" }}>
+              <GithubIcon size={16} /> @{CONFIG.github}
+            </a>
           </div>
         </motion.div>
       )}
     </nav>
+  );
+}
+
+// ─── SNAKE GAME BACKGROUND ───────────────────────────────────────────────────
+const PREY_TECH = ["React", "Python", "SQL", "Node.js", "MongoDB", "Docker", "Java", "Pandas", "Git", "REST", "JWT", "Vite"];
+
+function SnakeGame() {
+  const T = useTheme();
+  const canvasRef = useRef(null);
+  const themeRef = useRef(T);
+  themeRef.current = T;
+  const pointerRef = useRef({ x: -9999, y: -9999, t: 0 });
+  const [reducedMotion] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+  );
+
+  // Track cursor / touch position anywhere on the page
+  useEffect(() => {
+    const onMove = (e) => {
+      const p = pointerRef.current;
+      p.x = e.clientX; p.y = e.clientY; p.t = performance.now();
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let raf = 0, w = 0, h = 0;
+    const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+    const fit = () => {
+      const nw = window.innerWidth, nh = window.innerHeight;
+      if (nw !== w || nh !== h) {
+        w = nw; h = nh;
+        canvas.width = w * DPR; canvas.height = h * DPR;
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
+    };
+    fit();
+
+    const rand = (a, b) => a + Math.random() * (b - a);
+    const N = 32, SPACING = 11;
+    const pickLabel = (taken) => {
+      const free = PREY_TECH.filter(l => !taken.has(l));
+      const pool = free.length ? free : PREY_TECH;
+      return pool[Math.floor(Math.random() * pool.length)];
+    };
+    let x = window.innerWidth * 0.6, y = window.innerHeight * 0.35;
+    let angle = Math.PI * 0.75, t = Math.random() * 100;
+    const segs = Array.from({ length: N }, () => ({ x, y }));
+
+    const spawnPrey = (avoidHead = true, taken = new Set()) => {
+      const px = () => rand(40, Math.max(41, w - 40));
+      const py = () => rand(90, Math.max(91, h - 40));
+      let gx = px(), gy = py(), guard = 0;
+      if (avoidHead) {
+        while (Math.hypot(gx - x, gy - y) < 220 && guard++ < 12) { gx = px(); gy = py(); }
+      }
+      return {
+        x: gx, y: gy,
+        label: pickLabel(taken),
+        bob: Math.random() * Math.PI * 2,
+        alive: true, respawnAt: 0,
+      };
+    };
+    const prey = [];
+    {
+      const taken = new Set();
+      for (let k = 0; k < 5; k++) {
+        const f = spawnPrey(false, taken);
+        taken.add(f.label);
+        prey.push(f);
+      }
+    }
+    const pops = [];
+
+    const frame = () => {
+      fit();
+      const th = themeRef.current;
+      const dark = th.mode === "dark";
+      t += 0.016;
+
+      // Fade trails while keeping the canvas transparent
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = "rgba(0,0,0,0.12)";
+      ctx.fillRect(0, 0, w, h);
+      ctx.globalCompositeOperation = "source-over";
+
+      // Chase a fresh pointer, otherwise wander
+      const P = pointerRef.current;
+      const chasing = performance.now() - P.t < 2500 && P.x >= 0 && P.y >= 0;
+      let speed = 1.7;
+      if (chasing) {
+        const want = Math.atan2(P.y - y, P.x - x);
+        let d = want - angle;
+        while (d > Math.PI) d -= Math.PI * 2;
+        while (d < -Math.PI) d += Math.PI * 2;
+        angle += Math.max(-0.09, Math.min(0.09, d)) + Math.sin(t * 2.2) * 0.008;
+        speed = 2.3;
+      } else {
+        angle += Math.sin(t * 0.9) * 0.035 + Math.sin(t * 0.37 + 1.7) * 0.022;
+      }
+      const m = 70;
+      if (x < m || x > w - m || y < m || y > h - m) {
+        const want = Math.atan2(h / 2 - y, w / 2 - x);
+        let d = want - angle;
+        while (d > Math.PI) d -= Math.PI * 2;
+        while (d < -Math.PI) d += Math.PI * 2;
+        angle += d * 0.05;
+      }
+      x += Math.cos(angle) * speed;
+      y += Math.sin(angle) * speed;
+
+      // Follow-the-leader chain at fixed spacing
+      let px = x, py = y;
+      for (let i = 0; i < N; i++) {
+        const s = segs[i];
+        const dx = px - s.x, dy = py - s.y;
+        const dist = Math.hypot(dx, dy) || 0.001;
+        s.x = px - (dx / dist) * SPACING;
+        s.y = py - (dy / dist) * SPACING;
+        px = s.x; py = s.y;
+      }
+
+      // Prey: bob, flee, get eaten
+      const now = performance.now();
+      const labelCol = dark ? "rgba(215,226,234,0.6)" : "rgba(26,34,48,0.62)";
+      const dotCol = dark ? "249,115,22" : "234,88,12";
+      ctx.font = "600 10px 'Space Grotesk', sans-serif";
+      ctx.textAlign = "center";
+      for (const f of prey) {
+        if (!f.alive) {
+          if (now >= f.respawnAt) {
+            const taken = new Set(prey.filter(q => q.alive && q !== f).map(q => q.label));
+            Object.assign(f, spawnPrey(true, taken));
+          } else continue;
+        }
+        f.bob += 0.03;
+        const fdx = f.x - x, fdy = f.y - y;
+        const fd = Math.hypot(fdx, fdy) || 1;
+        if (fd < 130) { f.x += (fdx / fd) * 0.7; f.y += (fdy / fd) * 0.7; }
+        const fy = f.y + Math.sin(f.bob) * 4;
+        if (Math.hypot(f.x - x, fy - y) < 18) {
+          f.alive = false;
+          f.respawnAt = now + 1600;
+          pops.push({ x: f.x, y: fy - 10, text: `+ ${f.label}`, born: now });
+          for (let k = 0; k < 10; k++) {
+            pops.push({ x: f.x, y: fy, vx: rand(-1.6, 1.6), vy: rand(-1.8, 0.4), dot: true, born: now, life: rand(350, 650) });
+          }
+          if (pops.length > 60) pops.splice(0, pops.length - 60);
+          continue;
+        }
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = `rgba(${dotCol},0.6)`;
+        ctx.fillStyle = `rgba(${dotCol},0.85)`;
+        ctx.beginPath(); ctx.arc(f.x, fy, 3, 0, Math.PI * 2); ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = labelCol;
+        ctx.fillText(f.label, f.x, fy - 10);
+      }
+
+      // Draw snake tail → head
+      const body = dark ? "113,113,122" : "194,65,12";
+      const head = dark ? "249,115,22" : "234,88,12";
+      for (let i = N - 1; i >= 0; i--) {
+        const p = i / N;
+        const taper = Math.pow(1 - p, 1.4);
+        const r = 4.5 * taper + 1;
+        const a = (dark ? 0.34 : 0.3) * taper + 0.03;
+        ctx.beginPath();
+        ctx.arc(segs[i].x, segs[i].y, r, 0, Math.PI * 2);
+        if (i === 0) {
+          ctx.shadowBlur = 14;
+          ctx.shadowColor = `rgba(${head},0.8)`;
+          ctx.fillStyle = `rgba(${head},0.95)`;
+        } else {
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = `rgba(${body},${a.toFixed(3)})`;
+        }
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+
+      // Eat popups + burst particles
+      const popCol = dark ? "249,115,22" : "194,65,12";
+      for (let i = pops.length - 1; i >= 0; i--) {
+        const p = pops[i];
+        const age = now - p.born;
+        const life = p.life || 1100;
+        if (age > life) { pops.splice(i, 1); continue; }
+        const k = 1 - age / life;
+        if (p.dot) {
+          p.x += p.vx; p.y += p.vy; p.vy += 0.03;
+          ctx.fillStyle = `rgba(${popCol},${(0.8 * k).toFixed(3)})`;
+          ctx.beginPath(); ctx.arc(p.x, p.y, 2.2 * k + 0.6, 0, Math.PI * 2); ctx.fill();
+        } else {
+          ctx.font = "700 12px 'Space Grotesk', sans-serif";
+          ctx.fillStyle = `rgba(${popCol},${k.toFixed(3)})`;
+          ctx.fillText(p.text, p.x, p.y - age * 0.03);
+        }
+      }
+
+      raf = requestAnimationFrame(frame);
+    };
+    raf = requestAnimationFrame(frame);
+    return () => cancelAnimationFrame(raf);
+  }, [reducedMotion]);
+
+  if (reducedMotion) return null;
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden", pointerEvents: "none", opacity: T.mode === "dark" ? 0.8 : 0.65 }}>
+      <canvas ref={canvasRef} style={{ width: "100vw", height: "100vh", display: "block" }} />
+    </div>
   );
 }
 
@@ -386,10 +644,9 @@ function Hero() {
     return () => clearInterval(iv);
   }, [full]);
   return (
-    <section id="hero" style={{ minHeight: "100vh", display: "flex", alignItems: "center", background: T.bg, position: "relative", overflow: "hidden", padding: "0 1.5rem" }}>
-      <div style={{ position: "absolute", inset: 0, opacity: T.mode === "dark" ? 0.04 : 0.5, pointerEvents: "none", backgroundImage: `linear-gradient(${T.gridLine} 1px, transparent 1px), linear-gradient(90deg, ${T.gridLine} 1px, transparent 1px)`, backgroundSize: "80px 80px" }} />
-      <div style={{ position: "absolute", top: "20%", right: "8%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(113,113,122,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: "15%", left: "2%", width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, rgba(113,113,122,0.04) 0%, transparent 70%)", pointerEvents: "none" }} />
+    <section id="hero" style={{ display: "flex", alignItems: "center", background: "transparent", position: "relative", overflow: "hidden", padding: "0 1.5rem" }}>
+      <div style={{ position: "absolute", top: "20%", right: "8%", width: 500, height: 500, borderRadius: "50%", background: T.mode === "dark" ? "radial-gradient(circle, rgba(113,113,122,0.06) 0%, transparent 70%)" : "radial-gradient(circle, rgba(234,88,12,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: "15%", left: "2%", width: 300, height: 300, borderRadius: "50%", background: T.mode === "dark" ? "radial-gradient(circle, rgba(113,113,122,0.04) 0%, transparent 70%)" : "radial-gradient(circle, rgba(194,65,12,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 1, paddingTop: "5rem", width: "100%" }}>
         <FadeIn delay={0} y={-20}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.4rem 1.1rem", borderRadius: 20, border: `1px solid ${T.border}`, marginBottom: "2rem" }}>
@@ -445,19 +702,16 @@ function Hero() {
 function About() {
   const T = useTheme();
   return (
-    <section id="about" style={{ padding: "7rem 1.5rem", background: T.bg }}>
+    <section id="about" style={{ padding: "4.5rem 1.5rem", background: "transparent" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <SectionHeader tag="01" title="About Me" />
         <div className="two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start" }}>
           <FadeIn x={-40}>
             <AnimatedText
-              text={`I'm a 3rd-year Computer Science student at ${CONFIG.college}, ${CONFIG.semester}. My core strength is frontend development — building structured, accessible, and performant web interfaces using HTML, CSS, JavaScript, and React.`}
+              text="I'm a third-year Computer Science student who loves turning ideas into fast, accessible, and polished web interfaces. I build with JavaScript and React, and I pair that frontend work with solid SQL and relational database skills, so I understand the full path from data to screen."
               className="about-text" />
             <AnimatedText
-              text="I have a solid foundation in SQL and relational database design, including normalization, joins, indexing, and stored procedures."
-              className="about-text" style={{ marginTop: "1.75rem" }} />
-            <AnimatedText
-              text="Currently expanding into Data Science with Python, Pandas, and NumPy — building practical data pipelines and analysis workflows."
+              text="Lately I've been expanding into data science, using Python, Pandas, and NumPy to clean, explore, and make sense of real datasets. I enjoy projects where good design and good data meet, and I'm looking for internship opportunities where I can keep learning and ship work that people actually use."
               className="about-text" style={{ marginTop: "1.75rem" }} />
           </FadeIn>
           <FadeIn x={40} delay={0.2}>
@@ -486,7 +740,7 @@ const CAT_COLORS = { "Frontend": "#71717a", "Database & DBMS": "#f97316", "Data 
 
 function SkillCard({ cat, items, index }) {
   const T = useTheme();
-  const color = CAT_COLORS[cat];
+  const color = (T.catColors || CAT_COLORS)[cat];
   return (
     <FadeIn delay={index * 0.1}>
       <motion.div whileHover={{ y: -4, borderColor: color }}
@@ -515,10 +769,10 @@ function SkillCard({ cat, items, index }) {
 function Skills() {
   const T = useTheme();
   return (
-    <section id="skills" style={{ padding: "7rem 1.5rem", background: T.bg, borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}` }}>
+    <section id="skills" style={{ padding: "4.5rem 1.5rem", background: "transparent", borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}` }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <SectionHeader tag="02" title="Skills" sub="Domain-categorized proficiency overview." />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))", gap: "1.4rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(270px, 100%), 1fr))", gap: "1.4rem" }}>
           {Object.entries(SKILLS).map(([cat, items], i) => <SkillCard key={cat} cat={cat} items={items} index={i} />)}
         </div>
       </div>
@@ -529,13 +783,16 @@ function Skills() {
 // ─── PROJECTS (STICKY CARDS) ─────────────────────────────────────────────────
 function ProjectCard({ p, index, total }) {
   const T = useTheme();
+  const mobile = useIsMobile();
   const cardRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: cardRef, offset: ["start end", "end start"] });
   const targetScale = 1 - (total - 1 - index) * 0.03;
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
   return (
-    <div ref={cardRef} style={{ height: "85vh", position: "relative" }}>
-      <motion.div style={{ scale, top: `${index * 28}px`, position: "sticky", borderRadius: 40, border: `1px solid ${T.border}`, background: T.bgAlt, overflow: "hidden" }}>
+    <div ref={cardRef} style={mobile ? { position: "relative", marginBottom: "1.25rem" } : { height: "85vh", position: "relative" }}>
+      <motion.div style={mobile
+        ? { borderRadius: 24, border: `1px solid ${T.border}`, background: T.bgAlt, overflow: "hidden" }
+        : { scale, top: `${index * 28}px`, position: "sticky", borderRadius: 40, border: `1px solid ${T.border}`, background: T.bgAlt, overflow: "hidden" }}>
         <div style={{ padding: "clamp(1.5rem, 4vw, 2.5rem)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "1.2rem", gap: "1rem", flexWrap: "wrap" }}>
             <div>
@@ -566,7 +823,7 @@ function ProjectCard({ p, index, total }) {
 function Projects() {
   const T = useTheme();
   return (
-    <section id="projects" style={{ padding: "7rem 1.5rem", background: T.bg, position: "relative" }}>
+    <section id="projects" style={{ padding: "4.5rem 1.5rem", background: "transparent", position: "relative" }}>
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
         <SectionHeader tag="03" title="Projects" sub="Featured projects showcasing frontend, database, and data engineering work." />
         <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.72rem", color: T.accent, letterSpacing: "0.1em", marginBottom: "1.4rem", display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: 500 }}>
@@ -591,7 +848,7 @@ function Insights() {
   const tt = { background: T.tooltipBg, border: `1px solid ${T.border}`, borderRadius: 10, fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.78rem", color: T.text, fontWeight: 400 };
   const chartHeight = isMobile ? 180 : 220;
   return (
-    <section id="insights" style={{ padding: "7rem 1.5rem", background: T.bgAlt, borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}` }}>
+    <section id="insights" style={{ padding: "4.5rem 1.5rem", background: "transparent", borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}` }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <SectionHeader tag="04" title="Activity Insights" sub={ghData.loading ? "Loading live GitHub data..." : `Live data from github.com/${CONFIG.github} · ${ghData.publicRepos} public repos`} />
         {!ghData.loading && ghData.langData.length > 0 && (
@@ -673,7 +930,7 @@ function Insights() {
 function Education() {
   const T = useTheme();
   return (
-    <section id="education" style={{ padding: "7rem 1.5rem", background: T.bg }}>
+    <section id="education" style={{ padding: "4.5rem 1.5rem", background: "transparent" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <SectionHeader tag="05" title="Education" />
         <div className="two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3.5rem", alignItems: "start" }}>
@@ -692,7 +949,7 @@ function Education() {
           <FadeIn x={40} delay={0.15}>
             <div>
               <div style={{ fontFamily: "'Space Grotesk', sans-serif", color: T.textDim, fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "1rem", fontWeight: 500 }}>Relevant Coursework</div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}>
+              <div className="course-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}>
                 {EDUCATION.coursework.map(c => (
                   <div key={c} style={{ padding: "0.65rem 1rem", borderRadius: 10, fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.9rem", color: T.text, background: T.bgAlt, border: `1px solid ${T.border}`, borderLeft: "2px solid rgba(113,113,122,0.3)", fontWeight: 400 }}>{c}</div>
                 ))}
@@ -709,10 +966,10 @@ function Education() {
 function Achievements() {
   const T = useTheme();
   return (
-    <section id="achievements" style={{ padding: "7rem 1.5rem", background: T.bgAlt, borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}` }}>
+    <section id="achievements" style={{ padding: "4.5rem 1.5rem", background: "transparent", borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}` }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <SectionHeader tag="06" title="Achievements" />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(280px, 100%), 1fr))", gap: "1rem" }}>
           {ACHIEVEMENTS.map((a, i) => (
             <FadeIn key={a.title} delay={i * 0.1}>
               <motion.div whileHover={{ y: -4, borderColor: T.hoverBorder }}
@@ -750,7 +1007,7 @@ function Contact() {
     color: T.text, fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.95rem", fontWeight: 400, outline: "none", transition: "border-color 0.2s",
   });
   return (
-    <section id="contact" style={{ padding: "7rem 1.5rem", background: T.bg }}>
+    <section id="contact" style={{ padding: "4.5rem 1.5rem", background: "transparent" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <SectionHeader tag="07" title="Contact" sub="Open to internships and placement opportunities." />
         <div className="two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem" }}>
@@ -870,15 +1127,15 @@ function AskHimanshu() {
         whileTap={{ scale: 0.95 }}
         animate={{
           boxShadow: isOpen
-            ? "0 0 24px rgba(113,113,122,0.35)"
-            : ["0 0 20px rgba(113,113,122,0.2)", "0 0 32px rgba(113,113,122,0.45)", "0 0 20px rgba(113,113,122,0.2)"],
+            ? `0 0 24px ${T.assistantGlowSoft}`
+            : [`0 0 20px ${T.assistantGlowSoft}`, `0 0 34px ${T.assistantGlow}`, `0 0 20px ${T.assistantGlowSoft}`],
         }}
         transition={{ boxShadow: { duration: 2.5, repeat: Infinity } }}
         style={{
-          position: "fixed", bottom: "1.5rem", right: "1.5rem", zIndex: 200,
+          position: "fixed", bottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))", right: "1.25rem", zIndex: 200,
           width: 60, height: 60, borderRadius: "50%",
-          background: isOpen ? T.toggleOpenBg : "linear-gradient(135deg, #71717a, #52525b)",
-          border: `2px solid ${isOpen ? T.chatBorder : "rgba(113,113,122,0.5)"}`,
+          background: isOpen ? T.toggleOpenBg : T.assistant,
+          border: `2px solid ${isOpen ? T.chatBorder : T.assistantGlow}`,
           color: T.text, cursor: "pointer",
           display: "flex", alignItems: "center", justifyContent: "center",
           fontFamily: "'Kanit', sans-serif", fontSize: "0.55rem", fontWeight: 700,
@@ -896,8 +1153,8 @@ function AskHimanshu() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             style={{
-              position: "fixed", bottom: "5.5rem", right: "1.5rem", zIndex: 200,
-              width: "min(420px, calc(100vw - 3rem))", height: "min(600px, calc(100vh - 8rem))",
+              position: "fixed", bottom: "calc(5.5rem + env(safe-area-inset-bottom, 0px))", right: "1rem", zIndex: 200,
+              width: "min(420px, calc(100vw - 2rem))", height: "min(600px, calc(100vh - 8rem))",
               background: T.chatBg,
               backdropFilter: "blur(24px)",
               WebkitBackdropFilter: "blur(24px)",
@@ -919,13 +1176,13 @@ function AskHimanshu() {
                 style={{
                   width: 34, height: 34, borderRadius: "50%",
                   border: "2px solid transparent",
-                  borderTopColor: "#71717a", borderRightColor: "#f97316",
+                  borderTopColor: T.coral, borderRightColor: T.coral,
                   display: "flex", alignItems: "center", justifyContent: "center",
                   position: "relative",
                 }}>
                 <div style={{
                   width: 20, height: 20, borderRadius: "50%",
-                  background: "linear-gradient(135deg, #71717a, #f97316)",
+                  background: T.assistant,
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontFamily: "'Kanit', sans-serif", fontSize: "0.5rem", fontWeight: 900, color: "#fff",
                 }}>✦</div>
@@ -970,7 +1227,7 @@ function AskHimanshu() {
                     maxWidth: "88%",
                     padding: "0.75rem 1.1rem",
                     borderRadius: msg.role === "user" ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
-                    background: msg.role === "user" ? T.accentDim : T.bubbleBot,
+                    background: msg.role === "user" ? T.accentDim : T.coralDim,
                     border: `1px solid ${msg.role === "user" ? T.inputFocus : T.chatBorderSoft}`,
                   }}>
                   <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.9rem", color: T.text, lineHeight: 1.6, fontWeight: 400, whiteSpace: "pre-wrap" }}>
@@ -985,7 +1242,7 @@ function AskHimanshu() {
                     {[0, 1, 2].map(i => (
                       <motion.div key={i} animate={{ y: [0, -6, 0] }}
                         transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
-                        style={{ width: 7, height: 7, borderRadius: "50%", background: "#71717a" }} />
+                        style={{ width: 7, height: 7, borderRadius: "50%", background: T.coral }} />
                     ))}
                   </div>
                 </motion.div>
@@ -1009,18 +1266,18 @@ function AskHimanshu() {
                   color: T.text, fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: "0.92rem", fontWeight: 400, outline: "none", transition: "border-color 0.2s",
                 }}
-                onFocus={e => { e.target.style.borderColor = T.inputFocus; }}
+                onFocus={e => { e.target.style.borderColor = T.assistantGlow; }}
                 onBlur={e => { e.target.style.borderColor = T.chatBorderSoft; }}
               />
               <motion.button onClick={() => sendMessage()} disabled={loading || !input.trim()}
                 whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }}
                 style={{
                   width: 42, height: 42, borderRadius: 12,
-                  background: "linear-gradient(135deg, #71717a, #52525b)",
+                  background: T.assistant,
                   border: "none", color: "#fff", cursor: "pointer",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   opacity: loading || !input.trim() ? 0.4 : 1, transition: "opacity 0.2s",
-                  boxShadow: "0 2px 12px rgba(113,113,122,0.3)",
+                  boxShadow: `0 2px 12px ${T.assistantGlowSoft}`,
                 }}>
                 <SendIcon size={17} />
               </motion.button>
@@ -1061,6 +1318,13 @@ export default function App() {
     document.documentElement.setAttribute("data-theme", lightMode ? "light" : "dark");
     document.body.style.background = theme.bg;
     document.body.style.color = theme.text;
+    // Swap favicon to match the active theme
+    try {
+      const base = process.env.PUBLIC_URL || "";
+      const variant = lightMode ? "light" : "dark";
+      document.querySelector("#favicon-svg")?.setAttribute("href", `${base}/favicon-${variant}.svg`);
+      document.querySelector("#favicon-ico")?.setAttribute("href", `${base}/favicon${variant === "light" ? "-light" : ""}.ico`);
+    } catch { /* ignore */ }
     try { localStorage.setItem("portfolio-theme", lightMode ? "light" : "dark"); } catch { /* ignore */ }
     // Smoothly fade every surface on theme change (skipped on first paint).
     if (firstPaint.current) { firstPaint.current = false; return; }
@@ -1071,6 +1335,8 @@ export default function App() {
 
   return (
     <ThemeContext.Provider value={theme}>
+      <SnakeGame />
+      <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", opacity: theme.mode === "dark" ? 0.05 : 0.6, backgroundImage: `linear-gradient(${theme.gridLine} 1px, transparent 1px), linear-gradient(90deg, ${theme.gridLine} 1px, transparent 1px)`, backgroundSize: "80px 80px" }} />
       <Navbar lightMode={lightMode} onToggleTheme={toggleTheme} />
       <main>
         <Hero />
@@ -1082,7 +1348,7 @@ export default function App() {
         <Achievements />
         <Contact />
       </main>
-      <footer style={{ borderTop: `1px solid ${theme.border}`, padding: "2rem", textAlign: "center", background: theme.bg, transition: "background-color 0.3s ease, border-color 0.3s ease" }}>
+      <footer style={{ borderTop: `1px solid ${theme.border}`, padding: "2rem", textAlign: "center", background: "transparent", transition: "background-color 0.3s ease, border-color 0.3s ease" }}>
         <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "0.72rem", color: theme.textDim, userSelect: "none", fontWeight: 400 }}>
           © {new Date().getFullYear()} {CONFIG.name} · Built with React · Gemini AI
         </div>
